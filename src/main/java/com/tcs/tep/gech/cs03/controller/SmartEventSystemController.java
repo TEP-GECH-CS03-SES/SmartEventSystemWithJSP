@@ -62,6 +62,14 @@ public class SmartEventSystemController {
         //invalidate the session , this will clear the data from configured database (Mysql/redis/hazelcast)
         request.getSession().invalidate();
         return "redirect: ";
-    }
-
+    } 
+	@PostMapping("/reset")
+	public String ResetPassword(@ModelAttribute("forgot") ForgottenBean fb,HttpServletRequest request) {
+		String username = fb.getUserName();
+		String password = fb.getPassword();
+		String confirmpassword = fb.getConfirmPassword();
+		String email = fb.getEmail();
+		System.out.println(username +"   "+password+"    "+confirmpassword+"     "+email);
+		return "forgot";
+	}
 }
