@@ -1,0 +1,7 @@
+create table login (slno int primary key auto_increment, username varchar(20),password varchar(20),email varchar(50),phone varchar(15),role varchar(10));
+
+insert into login(username,password,email,phone,role) values('admin','admin','gowthamhm001@gmail.com','9483621844','admin');
+
+insert into login(username,password,email,phone,role) values('user','user','gowthamhm01@gmail.com','8095642067','user');
+
+select * from login;
