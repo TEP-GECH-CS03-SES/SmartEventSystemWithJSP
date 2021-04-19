@@ -16,4 +16,9 @@ public class SmartEventSystemServiceImpl implements SmartEventSystemService {
 	sdao.LoginCheck(username,password);
 	}
 
+	public void updatePassword(String username, String password, String email) {
+	sdao.updatePassword(username,password,email);
+		
+	}
+
 }

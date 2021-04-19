@@ -7,9 +7,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.springframework.stereotype.Repository;
 
+import com.tcs.tep.gech.cs03.bean.ForgottenBean;
 import com.tcs.tep.gech.cs03.bean.LoginBean;
 
 
@@ -18,6 +20,7 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO{
 
 	private Connection conn;
 	 LoginBean lb = new LoginBean();
+	ForgottenBean fb = new ForgottenBean();
 
 	public Connection getConn() {
 		return conn;
@@ -80,6 +83,42 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO{
 				lb.setValid(false);
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void updatePassword(String username, String password, String email) {
+		String getuser ="select * from login where username='"+username+"' and email='"+email+"'";
+		String dbusername = null;
+		String dbemail = null;
+		Statement stmt = null;
+		try {
+			PreparedStatement ps = conn.prepareStatement(getuser);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				System.out.println(rs.getString("username"));
+				System.out.println(rs.getString("email"));
+				dbusername = rs.getString("username");
+				dbemail = rs.getString("email");
+			}
+			if(username.equals(dbusername) && email.equals(dbemail)) {
+				String upquery = "update login set password='" + password + "'where username='" + username
+						+ "'and email ='" + email + "'";
+				stmt = conn.createStatement();
+				int num = stmt.executeUpdate(upquery);
+				System.out.println("Number of records updated are: " + num);
+				if (num == 1) {
+					fb.setConfirm(true);
+				} else if (num > 1) {
+
+				} else {
+					System.out.println("Not Updated Successfully");
+				}
+			}else {
+				fb.setConfirm(false);
+			}
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

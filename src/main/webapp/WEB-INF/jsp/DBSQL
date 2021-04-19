@@ -5,3 +5,9 @@ insert into login(username,password,email,phone,role) values('admin','admin','go
 insert into login(username,password,email,phone,role) values('user','user','gowthamhm01@gmail.com','8095642067','user');
 
 select * from login;
+
+select * from login where username='"+username+"' and password='"+password+"'"
+
+String upquery = "update login set password='" + password + "'where username='" + username + "'and email ='" + email + "'"
+
+create table event(sl_no int primary key auto_increment , event_name varchar(50) Unique ,event_type varchar(30), event_start_date DATE, event_end_date DATE, event_start_time TIME, event_end_time TIME, event_status int, participents_count int);
