@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+
+import com.tcs.tep.gech.cs03.bean.EventBean;
 import com.tcs.tep.gech.cs03.bean.ForgottenBean;
 import com.tcs.tep.gech.cs03.bean.LoginBean;
 import com.tcs.tep.gech.cs03.service.SmartEventSystemServiceImpl;
@@ -37,7 +39,7 @@ public class SmartEventSystemController {
 	}
 
 	@PostMapping("/varify")
-	public String loginVarify(@ModelAttribute("login") LoginBean login,HttpServletRequest request) {
+	public String loginVarify(@ModelAttribute("login") LoginBean login,@ModelAttribute("event") EventBean eb, HttpServletRequest request) {
 		String username = login.getUserName();
 		String password = login.getPassword();
 //		System.out.println(username +"   "+password);
@@ -69,7 +71,17 @@ public class SmartEventSystemController {
 		String password = fb.getPassword();
 		String confirmpassword = fb.getConfirmPassword();
 		String email = fb.getEmail();
-		System.out.println(username +"   "+password+"    "+confirmpassword+"     "+email);
+//		System.out.println(username +"   "+password+"    "+confirmpassword+"     "+email);
+		if(password.equals(confirmpassword)) {
+			ss.updatePassword(username,password,email);
+		}else {
+			return "forgot";	
+		}
+		boolean confirm = fb.getConfirm();
+		if(confirm == true) {
+			 return "redirect: ";
+		}else {
 		return "forgot";
+		}
 	}
 }
