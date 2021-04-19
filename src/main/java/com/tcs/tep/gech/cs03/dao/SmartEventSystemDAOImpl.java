@@ -52,7 +52,7 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO{
 //		System.out.println("Full Path : " + fullPath);
 		return fullPath;
 	}
-	public void LoginCheck(String username, String password) {
+	public void loginCheck(String username, String password) {
 //		System.out.println(username+"   "+password);
 		String getuser ="select * from login where username='"+username+"' and password='"+password+"'";
 		String role=null;

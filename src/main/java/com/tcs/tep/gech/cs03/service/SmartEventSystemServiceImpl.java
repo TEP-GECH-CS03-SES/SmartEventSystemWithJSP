@@ -11,14 +11,13 @@ public class SmartEventSystemServiceImpl implements SmartEventSystemService {
 	@Autowired
 	private SmartEventSystemDAOImpl sdao;
 
-	public void LoginCheck(String username, String password) {
+	public void loginCheck(String username, String password) {
 //	System.out.println(username+"   "+password);
-	sdao.LoginCheck(username,password);
+	sdao.loginCheck(username,password);
 	}
 
 	public void updatePassword(String username, String password, String email) {
 	sdao.updatePassword(username,password,email);
-		
 	}
 
 }

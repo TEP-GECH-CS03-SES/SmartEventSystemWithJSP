@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +54,7 @@ if(session.getAttribute("adminUser").equals("admin")){
             <div class="profile clearfix">
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2> </h2>
+                <h2><%=session.getAttribute("adminUser") %> </h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -64,7 +65,7 @@ if(session.getAttribute("adminUser").equals("admin")){
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a href="home"><i class="fa fa-home"></i> Home </a>
+                  <li><a href="AdminHome"><i class="fa fa-home"></i> Home </a>
                   </li>
                   <li><a href="instancesms"><i class="fa fa-comments-o"></i> Instance SMS </a>
                   </li>
@@ -88,7 +89,7 @@ if(session.getAttribute("adminUser").equals("admin")){
               <nav class="nav navbar-nav">
               <ul class=" navbar-right">
                 <li class="nav-item open" style="padding-left: 15px;">
-                  <a class="dropdown-item"  href="logout.php"><i class="fa fa-sign-out"></i> Log Out</a>
+                  <a class="dropdown-item"  href="logout"><i class="fa fa-sign-out"></i> Log Out</a>
                 </li>
               </ul>
             </nav>

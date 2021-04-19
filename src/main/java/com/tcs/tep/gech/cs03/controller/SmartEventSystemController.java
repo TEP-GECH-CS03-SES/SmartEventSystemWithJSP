@@ -43,7 +43,7 @@ public class SmartEventSystemController {
 		String username = login.getUserName();
 		String password = login.getPassword();
 //		System.out.println(username +"   "+password);
-		ss.LoginCheck(username,password);
+		ss.loginCheck(username,password);
 		boolean validUser = login.isValid();
 		boolean Admin = login.isAdmin();
 		String role = login.getRole();
@@ -66,7 +66,7 @@ public class SmartEventSystemController {
         return "redirect: ";
     } 
 	@PostMapping("/reset")
-	public String ResetPassword(@ModelAttribute("forgot") ForgottenBean fb,HttpServletRequest request) {
+	public String resetPassword(@ModelAttribute("forgot") ForgottenBean fb,HttpServletRequest request) {
 		String username = fb.getUserName();
 		String password = fb.getPassword();
 		String confirmpassword = fb.getConfirmPassword();
