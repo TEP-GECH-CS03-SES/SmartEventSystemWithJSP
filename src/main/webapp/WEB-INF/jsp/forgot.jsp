@@ -29,8 +29,7 @@
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
-						<img src="assets/images/logo.jpg" alt="logo">
-					</div>
+							</div>
 					<h4 class="card-title" style="text-align: center;">Smart Event
 						System</h4>
 					<br>
