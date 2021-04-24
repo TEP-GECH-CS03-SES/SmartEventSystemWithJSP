@@ -3,6 +3,8 @@ package com.tcs.tep.gech.cs03.dao;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.Time;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +13,7 @@ import java.sql.Statement;
 
 import org.springframework.stereotype.Repository;
 
+import com.tcs.tep.gech.cs03.bean.EventBean;
 import com.tcs.tep.gech.cs03.bean.ForgottenBean;
 import com.tcs.tep.gech.cs03.bean.LoginBean;
 
@@ -62,14 +65,16 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO{
 			PreparedStatement ps = conn.prepareStatement(getuser);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				System.out.println(rs.getString("username"));
-				System.out.println(rs.getString("password"));
-				System.out.println(rs.getString("role"));
+				/*
+				 * System.out.println(rs.getString("username"));
+				 * System.out.println(rs.getString("password"));
+				 * System.out.println(rs.getString("role"));
+				 */
 				role = rs.getString("role");
 				dbusername = rs.getString("username");
 				dbpassword = rs.getString("password");
 			}
-			System.out.println(username +"  "+dbusername+"     "+password+"        "+dbpassword);
+//			System.out.println(username +"  "+dbusername+"     "+password+"        "+dbpassword);
 			if(username.equals(dbusername) && password.equals(dbpassword)) {
 				lb.setValid(true);
 				if(role.equals("admin")) {
@@ -97,9 +102,10 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO{
 			PreparedStatement ps = conn.prepareStatement(getuser);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				System.out.println(rs.getString("username"));
-				System.out.println(rs.getString("email"));
-				dbusername = rs.getString("username");
+				/*
+				 * System.out.println(rs.getString("username"));
+				 * System.out.println(rs.getString("email"));
+				 */		dbusername = rs.getString("username");
 				dbemail = rs.getString("email");
 			}
 			if(username.equals(dbusername) && email.equals(dbemail)) {
@@ -119,6 +125,30 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO{
 				fb.setConfirm(false);
 			}
 		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void createEvent(EventBean eb) {
+		Statement stmt = null;
+		try {
+			stmt = conn.createStatement();
+			String event_name = eb.getEvent_name();
+			String event_type = eb.getEvent_type();
+			Date event_start_date = eb.getEvent_start_date();
+			Date event_end_date = eb.getEvent_end_date();
+			Time event_start_time = eb.getEvent_start_time();
+			Time event_end_time = eb.getEvent_end_time();
+			int event_status = eb.getEvent_status();
+			int participents_count = eb.getParticipents_count();
+//			System.out.println(eb);
+			
+			System.out.println(event_name + " " + event_type + "   " + event_start_date + "   " + event_end_date + "  "+ event_start_time + "  " + event_end_time + " " + event_status + " " + participents_count);
+			String insertEvent = "insert into event(EVENT_NAME,EVENT_TYPE,EVENT_START_DATE,EVENT_END_DATE,EVENT_START_TIME,EVENT_END_TIME,EVENT_STATUS,PARTICIPENTS_COUNT) values "
+					+ "('"+event_name+"','"+event_type+"',"+ event_start_date +","+event_end_date+","+ event_start_time+","+event_end_time+","+1+","+participents_count+")";
+			stmt.execute(insertEvent);
+			System.out.println("Values inserted");
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

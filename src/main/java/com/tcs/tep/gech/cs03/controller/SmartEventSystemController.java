@@ -1,7 +1,6 @@
 package com.tcs.tep.gech.cs03.controller;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotEmpty;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,10 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.PrintWriter;
 import java.sql.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -55,11 +51,6 @@ public class SmartEventSystemController {
 		String username = login.getUserName();
 		String password = login.getPassword();
 		EventBean eb = new EventBean();
-		Map<String, String> eventType= new LinkedHashMap<String, String>();
-		eventType.put("BIR","BirthDay");
-		eventType.put("SEM","Seminar");
-		eventType.put("PAP","Paper Presenation");
-		eventType.put("MAR","marriage");
 		model.addAttribute("event", eb);
 //		System.out.println(username +"   "+password);
 		ss.loginCheck(username, password);
@@ -110,17 +101,18 @@ public class SmartEventSystemController {
 	@PostMapping("/createEvent")
 	public String createEvent(@ModelAttribute("event") EventBean eb, Model model, HttpServletRequest request) {
 		model.addAttribute("event", eb);
-		String event_name = eb.getEvent_name();
-		String event_type = eb.getEvent_type();
-		Date event_start_date = eb.getEvent_start_date();
-		Date event_end_date = eb.getEvent_end_date();
-		String event_start_time = eb.getEvent_start_time();
-		String event_end_time = eb.getEvent_end_time();
-		int event_status = eb.getEvent_status();
-		int participents_count = eb.getParticipents_count();
-//		System.out.println(eb);
-		System.out.println(event_name + " " + event_type + "   " + event_start_date + "   " + event_end_date + "  "
-				+ event_start_time + "  " + event_end_time + " " + event_status + " " + participents_count);
+		/*
+		 * String event_name = eb.getEvent_name(); String event_type =
+		 * eb.getEvent_type(); Date event_start_date = eb.getEvent_start_date(); Date
+		 * event_end_date = eb.getEvent_end_date(); String event_start_time =
+		 * eb.getEvent_start_time(); String event_end_time = eb.getEvent_end_time(); int
+		 * event_status = eb.getEvent_status(); int participents_count =
+		 * eb.getParticipents_count(); // System.out.println(eb);
+		 * System.out.println(event_name + " " + event_type + "   " + event_start_date +
+		 * "   " + event_end_date + "  " + event_start_time + "  " + event_end_time +
+		 * " " + event_status + " " + participents_count);
+		 */
+		ss.createEvent(eb);
 		return "AdminHome";
 	}
 

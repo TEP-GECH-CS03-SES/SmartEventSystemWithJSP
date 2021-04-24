@@ -165,15 +165,17 @@ if (session.getAttribute("adminUser").equals("admin")) {
 									<div class="col-md-6 col-sm-6  form-group has-feedback">
 										<label for="event_type"><form:label path="event_type">Event Type
 										</form:label> </label>
-										 <form:select class="form-control" path="event_type"
-											items="${eventType}" /> 
-										<%-- 	<form:input id="event_type" path="event_type"
-											class="form-control" type="text" name="eventtype" value=""
-											required="true" data-eye="true" /> --%>
+										<form:select class="form-control" path="event_type" id = "ddlModels" onchange = "EnableDisableTextBox(this)">
+										<form:option value="Seminar" label="Seminar" />
+										<form:option value="Paper Presentation" label="Paper Presentation" />
+										<form:option value="BirthDay" label="BirthDay" />
+										<form:option value="Marriage" label="Marriage" />
+										<form:option value="Other" label="Other" />
+											</form:select>
 										<div class="invalid-feedback">
 											<form:errors path="event_type" class="help-inline" />
 											Event type is required
-										</div>
+										</div>	
 									</div>
 									<div class="col-md-6 col-sm-6  form-group has-feedback">
 										<label for="event_start_date"><form:label
@@ -232,7 +234,8 @@ if (session.getAttribute("adminUser").equals("admin")) {
 											class="form-control" type="int" name="participentscount"
 											value="" required="true" data-eye="true" />
 										<div class="invalid-feedback">
-											<form:errors path="participents_count" cssClass="error" class="help-inline" />
+											<form:errors path="participents_count" cssClass="error"
+												class="help-inline" />
 											Participants Count is required
 										</div>
 									</div>
@@ -322,5 +325,12 @@ if (session.getAttribute("adminUser").equals("admin")) {
 			x.style.display = "none";
 		}
 	}
+	
+	 function EnableDisableTextBox(ddlModels) {
+	        var selectedValue = ddlModels.options[ddlModels.selectedIndex].value;
+	        console.log(selectedValue);
+	        var txtOther = document.getElementById("txtOther");
+
+	    }
 </script>
 </html>
