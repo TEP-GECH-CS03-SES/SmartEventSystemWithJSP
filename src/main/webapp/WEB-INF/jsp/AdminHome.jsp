@@ -123,7 +123,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 						<!-- /col-md-4 end -->
 					</div>
 					<div class="col-md-4">
-						<button class="btn btn-round btn-success clf"
+						<button class="btn btn-round clf  btn-info"
 							data-toggle="collapseupdate" data-target="#collapsetwo"
 							onclick="showu()">
 							<i class="fa fa-folder-o pr-2" aria-hidden="true"></i>Update
@@ -132,7 +132,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 						<!-- /col-md-4 end -->
 					</div>
 					<div class="col-md-4">
-						<button class="btn btn-round btn-success clf"
+						<button class="btn btn-round 	clf btn-danger"
 							data-toggle="collapsedelete" data-target="#collapsethree"
 							onclick="showd()">
 							<i class="fa fa-folder-o pr-2" aria-hidden="true"></i>Delete
@@ -146,111 +146,27 @@ if (session.getAttribute("adminUser").equals("admin")) {
 					<div class="col-md-12">
 						<div class="collapse x_content" id="collapseOne"
 							style="display: none;">
-							<!--Panel-->
-							<div class="card card-body ml-1"
-								style="background: none; width: auto;">
-								<h4 class="card-title">Create Event</h4>
-								<form:form method="POST" action="createEvent"
-									modelAttribute="event" class="form-label-left input_mask">
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="event_name"><form:label path="event_name">Event  Name</form:label></label>
-										<form:input id="event_name" path="event_name"
-											class="form-control" type="text" value="" required="true"
-											autofocus="true" />
-										<div class="invalid-feedback">
-											<form:errors path="event_name" class="help-inline" />
-											Event Name is invalid
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="event_type"><form:label path="event_type">Event Type
-										</form:label> </label>
-										<form:select class="form-control" path="event_type" id = "ddlModels" onchange = "EnableDisableTextBox(this)">
-										<form:option value="Seminar" label="Seminar" />
-										<form:option value="Paper Presentation" label="Paper Presentation" />
-										<form:option value="BirthDay" label="BirthDay" />
-										<form:option value="Marriage" label="Marriage" />
-										<form:option value="Other" label="Other" />
-											</form:select>
-										<div class="invalid-feedback">
-											<form:errors path="event_type" class="help-inline" />
-											Event type is required
-										</div>	
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="event_start_date"><form:label
-												path="event_start_date">Event Start Date
-										</form:label> </label>
-										<form:input id="event_start_date" path="event_start_date"
-											class="form-control" type="date" name="eventstartdate"
-											value="" required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="event_start_date" class="help-inline" />
-											Event Start Date is required
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="event_end_date"><form:label
-												path="event_end_date">Event End Date
-										</form:label> </label>
-										<form:input id="event_end_date" path="event_end_date"
-											class="form-control" type="date" name="eventenddate" value=""
-											required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="event_end_date" class="help-inline" />
-											Event End Date is required
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="event_start_time"><form:label
-												path="event_start_time">
-												Event Start Time
-										</form:label> </label>
-										<form:input id="event_start_time" path="event_start_time"
-											class="form-control" type="time" name="eventstarttime"
-											value="" required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="event_start_time" class="help-inline" />
-											Event Start Time is required
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="event_end_time"><form:label
-												path="event_end_time">Event End Time
-										</form:label> </label>
-										<form:input id="event_end_time" path="event_end_time"
-											class="form-control" type="time" name="eventendtime" value=""
-											required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="event_end_time" class="help-inline" />
-											Event End Time is required
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="participents_count"><form:label
-												path="participents_count">Participants Count
-										</form:label> </label>
-										<form:input id="participents_count" path="participents_count"
-											class="form-control" type="int" name="participentscount"
-											value="" required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="participents_count" cssClass="error"
-												class="help-inline" />
-											Participants Count is required
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-md-6 col-sm-6  offset-md-6">
-											<form:button class="btn btn-primary btn-block">
-                                  Create Event
-                                  </form:button>
-										</div>
-									</div>
-
-								</form:form>
-							</div>
-
+							<h1>Hello</h1>
 						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="collapse x_content" id="collapsetwo"
+							style="display: none;">
+							<h2>dbdjkdvjvd</h2>
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="collapse x_content" id="collapsethree"
+							style="display: none;">
+							<h3>djbvfdskbvdbfj</h3>
+						</div>
+
 					</div>
 				</div>
 				<div class="row">
@@ -324,13 +240,34 @@ if (session.getAttribute("adminUser").equals("admin")) {
 		} else {
 			x.style.display = "none";
 		}
+		var y = document.getElementById("collapsetwo");
+		y.style.display = "none";
+		var z = document.getElementById("collapsethree");
+		z.style.display = "none";
 	}
-	
-	 function EnableDisableTextBox(ddlModels) {
-	        var selectedValue = ddlModels.options[ddlModels.selectedIndex].value;
-	        console.log(selectedValue);
-	        var txtOther = document.getElementById("txtOther");
-
-	    }
+	function showu() {
+		var x = document.getElementById("collapseOne");
+		x.style.display = "none";
+		var y = document.getElementById("collapsetwo");
+		if (y.style.display === "none") {
+			y.style.display = "block";
+		} else {
+			y.style.display = "none";
+		}
+		var z = document.getElementById("collapsethree");
+		z.style.display = "none";
+	}
+	function showd() {
+		var x = document.getElementById("collapseOne");
+		x.style.display = "none";
+		var y = document.getElementById("collapsetwo");
+		y.style.display = "none";
+		var z = document.getElementById("collapsethree");
+		if (z.style.display === "none") {
+			z.style.display = "block";
+		} else {
+			z.style.display = "none";
+		}
+	}
 </script>
 </html>

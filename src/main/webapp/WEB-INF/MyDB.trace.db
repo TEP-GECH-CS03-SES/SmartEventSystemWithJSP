@@ -1203,3 +1203,6 @@ Caused by: java.lang.IllegalArgumentException: 1993
 	at org.h2.util.DateTimeUtils.parseDateValue(DateTimeUtils.java:166)
 	at org.h2.value.ValueDate.parse(ValueDate.java:72)
 	... 79 more
+2021-04-26 09:09:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE QRCODE (SLNO INT PRIMARY KAY[*] AUTO_INCREMENT, FIRST_NAME VARCHAR(20), PHONE VARCHAR(15),EVENT_NAME VARCHAR(50), TEXT VARCHAR(500), QOUTED_TEXT VARCHAR(500), INQRCODE_NAME VARCHAR(100),OUTQRCODE_NAME VARCHAR(100), STATUS INT)"; expected "KEY"; SQL statement:
+create table qrcode (slno int primary kay auto_increment, first_name varchar(20), phone varchar(15),event_name varchar(50), text varchar(500), qouted_text varchar(500), inqrcode_name varchar(100),outqrcode_name varchar(100), status int) [42001-200]

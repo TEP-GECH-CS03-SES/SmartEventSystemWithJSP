@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,6 +36,12 @@ public class SmartEventSystemController {
 		EventBean eb = new EventBean();
 		model.addAttribute("event", eb);
 		return "AdminHome";
+	}
+	@GetMapping("/UserHome")
+	public String userHome(Model model) {
+		EventBean eb = new EventBean();
+		model.addAttribute("event", eb);
+		return "UserHome";
 	}
 
 	@GetMapping("/forgot")

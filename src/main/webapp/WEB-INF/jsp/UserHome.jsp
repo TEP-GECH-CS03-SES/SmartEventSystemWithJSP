@@ -113,118 +113,25 @@ if(session.getAttribute("normUser").equals("user")){
 			<div class="right_col" role="main">
 				<!-- top tiles -->
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-4">
 						<button class="btn btn-round btn-success clf"
 							data-toggle="collapse" data-target="#collapseOne"
 							onclick="showf()">
 							<i class="fa fa-folder-o pr-2" aria-hidden="true"></i>Create
 							Event
 						</button>
-
-						<div class="collapse x_content" id="collapseOne"
-							style="display: none;">
-							<!--Panel-->
-							<div class="card card-body ml-1"
-								style="background: none; width: auto;">
-								<h4 class="card-title">Create Event</h4>
-								<form:form method="POST" action="createEvent"
-									modelAttribute="event" class="form-label-left input_mask">
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="event_name"><form:label path="event_name">Event  Name</form:label></label>
-										<form:input id="event_name" path="event_name" class="form-control"
-											type="text" value="" required="true" autofocus="true" />
-										<div class="invalid-feedback">
-											<form:errors path="event_name" class="help-inline" />
-											Event Name is invalid
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="event_type"><form:label path="event_type">Event Type
-										</form:label> </label>
-										<form:input id="event_type" path="event_type"
-											class="form-control" type="text" name="eventtype" value=""
-											required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="event_type" class="help-inline" />
-											Event type is required
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="event_start_date"><form:label
-												path="event_start_date">Event Start Date
-										</form:label> </label>
-										<form:input id="event_start_date" path="event_start_date"
-											class="form-control" type="date" name="eventstartdate"
-											value="" required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="event_start_date" class="help-inline" />
-											Event Start Date is required
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="event_end_date"><form:label
-												path="event_end_date">Event End Date
-										</form:label> </label>
-										<form:input id="event_end_date" path="event_end_date"
-											class="form-control" type="date" name="eventenddate" value=""
-											required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="event_end_date" class="help-inline" />
-											Event End Date is required
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="event_start_time"><form:label
-												path="event_start_time">
-												Event Start Time
-										</form:label> </label>
-										<form:input id="event_start_time" path="event_start_time"
-											class="form-control" type="time" name="eventstarttime"
-											value="" required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="event_start_time" class="help-inline" />
-											Event Start Time is required
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="event_end_time"><form:label
-												path="event_end_time">Event End Time
-										</form:label> </label>
-										<form:input id="event_end_time" path="event_end_time"
-											class="form-control" type="time" name="eventendtime" value=""
-											required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="event_end_time" class="help-inline" />
-											Event End Time is required
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="participents_count"><form:label
-												path="participents_count">Participants Count
-										</form:label> </label>
-										<form:input id="participents_count" path="participents_count"
-											class="form-control" type="int" name="participentscount"
-											value="" required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="participents_count" class="help-inline" />
-											Participants Count is required
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-md-6 col-sm-6  offset-md-6">
-											<form:button class="btn btn-primary btn-block">
-                                  Create Event
-                                  </form:button>
-										</div>
-									</div>
-
-								</form:form>
-							</div>
-
-						</div>
-						<!-- /col-md-12 end -->
+						<!-- /col-md-4 end -->
 					</div>
 					<!-- /row end -->
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="collapse x_content" id="collapseOne"
+							style="display: none;">
+							<h1>Hello</h1>
+						</div>
+
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6 col-lg-4">
