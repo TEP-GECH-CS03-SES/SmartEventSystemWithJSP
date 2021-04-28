@@ -1,5 +1,7 @@
 package com.tcs.tep.gech.cs03.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +25,13 @@ public class SmartEventSystemServiceImpl implements SmartEventSystemService {
 
 	public void createEvent(EventBean eb) {
 		sdao.createEvent(eb);
+	}
+
+	public ArrayList<EventBean> getAllEventDetail() {
+		return sdao.getAllEventDetail();
+	}
+
+	public EventBean getEventDetail(String eventName) {
+		return sdao.getEventDetail(eventName);
 	}
 }

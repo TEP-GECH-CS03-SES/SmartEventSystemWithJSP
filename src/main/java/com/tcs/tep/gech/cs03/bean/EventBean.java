@@ -1,7 +1,6 @@
 package com.tcs.tep.gech.cs03.bean;
 
 import java.sql.Date;
-import java.sql.Time;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
@@ -15,55 +14,48 @@ public class EventBean {
 	@NotEmpty(message = "Event Type cannot be null")
 	private String event_type;
 	
-	@NotEmpty(message= "Event Type Canot br Null")
+	@NotEmpty(message= "Event Type Can't be Null")
 	private String eventtype;
 	
-	public String getEventtype() {
-		return eventtype;
-	}
-
-	public void setEventtype(String eventtype) {
-		this.eventtype = eventtype;
-	}
-
 	@Future(message = "Date Must be in Future")
 	private Date event_start_date;
 	@Future(message = "Date Must be in Future")
 	private Date event_end_date;
 	
-	@FutureOrPresent
-	private Time event_start_time;
-	@FutureOrPresent
-	private Time event_end_time;
+	@NotEmpty(message= "Event Start Time Can't be Null")
+	private String event_start_time;
+	@NotEmpty(message= "Event End Time Can't be Null")
+	private String event_end_time;
 	
 
 	private int event_status;
 	
 	@Min(value=30,message = "Count Must be Greater than 30")
 	private int participents_count;
-
-	
-	public EventBean() {
-		super();
-	}
-
 	
 
+	@NotEmpty(message= "Location Can't be empty")
+	private String  event_loacation;
+	
+	
+	private boolean already_Present;
 	@Override
 	public String toString() {
 		return "EventBean [event_name=" + event_name + ", event_type=" + event_type + ", eventtype=" + eventtype
 				+ ", event_start_date=" + event_start_date + ", event_end_date=" + event_end_date
 				+ ", event_start_time=" + event_start_time + ", event_end_time=" + event_end_time + ", event_status="
-				+ event_status + ", participents_count=" + participents_count + "]";
+				+ event_status + ", participents_count=" + participents_count + ", event_loacation=" + event_loacation
+				+ "]";
 	}
 
 	public EventBean(@NotEmpty(message = "Event Name cannot be null") String event_name,
 			@NotEmpty(message = "Event Type cannot be null") String event_type,
-			@NotEmpty(message = "Event Type Canot br Null") String eventtype,
+			@NotEmpty(message = "Event Type Can't be Null") String eventtype,
 			@Future(message = "Date Must be in Future") Date event_start_date,
-			@Future(message = "Date Must be in Future") Date event_end_date, @FutureOrPresent @FutureOrPresent Time event_start_time,
-			@FutureOrPresent @FutureOrPresent Time event_end_time, int event_status,
-			@Min(value = 30, message = "Count Must be Greater than 30") int participents_count) {
+			@Future(message = "Date Must be in Future") Date event_end_date, @FutureOrPresent String event_start_time,
+			@FutureOrPresent String event_end_time, int event_status,
+			@Min(value = 30, message = "Count Must be Greater than 30") int participents_count,
+			@NotEmpty(message = "Location Can't be empty") String event_loacation) {
 		super();
 		this.event_name = event_name;
 		this.event_type = event_type;
@@ -74,6 +66,11 @@ public class EventBean {
 		this.event_end_time = event_end_time;
 		this.event_status = event_status;
 		this.participents_count = participents_count;
+		this.event_loacation = event_loacation;
+	}
+	
+	public EventBean() {
+		super();
 	}
 
 	public String getEvent_name() {
@@ -108,19 +105,19 @@ public class EventBean {
 		this.event_end_date = event_end_date;
 	}
 
-	public Time getEvent_start_time() {
+	public String getEvent_start_time() {
 		return event_start_time;
 	}
 
-	public void setEvent_start_time(@FutureOrPresent Time event_start_time) {
+	public void setEvent_start_time(@FutureOrPresent @NotEmpty(message = "Event Start Time Can't be Null") String event_start_time) {
 		this.event_start_time = event_start_time;
 	}
 
-	public @FutureOrPresent Time getEvent_end_time() {
+	public @FutureOrPresent String getEvent_end_time() {
 		return event_end_time;
 	}
 
-	public void setEvent_end_time(@FutureOrPresent Time event_end_time) {
+	public void setEvent_end_time(@FutureOrPresent @NotEmpty(message = "Event End Time Can't be Null") String event_end_time) {
 		this.event_end_time = event_end_time;
 	}
 
@@ -139,4 +136,29 @@ public class EventBean {
 	public void setParticipents_count(int participents_count) {
 		this.participents_count = participents_count;
 	}
+
+	public String getEvent_loacation() {
+		return event_loacation;
+	}
+
+	public void setEvent_loacation(String event_loacation) {
+		this.event_loacation = event_loacation;
+	}
+
+	public String getEventtype() {
+		return eventtype;
+	}
+
+	public void setEventtype(String eventtype) {
+		this.eventtype = eventtype;
+	}
+
+	public boolean isAlready_Present() {
+		return already_Present;
+	}
+
+	public void setAlready_Present(boolean already_Present) {
+		this.already_Present = already_Present;
+	}
+
 }

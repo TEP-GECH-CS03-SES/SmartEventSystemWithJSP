@@ -17,36 +17,36 @@ if (session.getAttribute("adminUser").equals("admin")) {
 <meta charset="ISO-8859-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="assets/images/logo.ico" type="image/ico" />
-<title>Admin</title>
+<link rel="icon" href="../assets/images/logo.ico" type="image/ico" />
+<title><%=session.getAttribute("eventName")%></title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
 	crossorigin="anonymous">
 <!-- Bootstrap -->
-<link href="assets/vendors/bootstrap/dist/css/bootstrap.min.css"
+<link href="../assets/vendors/bootstrap/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <!-- Font Awesome -->
-<link href="assets/vendors/font-awesome/css/font-awesome.min.css"
+<link href="../assets/vendors/font-awesome/css/font-awesome.min.css"
 	rel="stylesheet">
 <!-- NProgress -->
-<link href="assets/vendors/nprogress/nprogress.css" rel="stylesheet">
+<link href="../assets/vendors/nprogress/nprogress.css" rel="stylesheet">
 <!-- iCheck -->
-<link href="assets/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+<link href="../assets/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
 <!-- bootstrap-progressbar -->
 <link
-	href="assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css"
+	href="../assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css"
 	rel="stylesheet">
 <!-- JQVMap -->
-<link href="assets/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+<link href="../assets/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
 <!-- bootstrap-daterangepicker -->
 <link
-	href="assets/vendors/bootstrap-daterangepicker/daterangepicker.css"
+	href="../assets/vendors/bootstrap-daterangepicker/daterangepicker.css"
 	rel="stylesheet">
 
 <!-- Custom Theme Style -->
-<link href="assets/build/css/custom.min.css" rel="stylesheet">
+<link href="../assets/build/css/custom.min.css" rel="stylesheet">
 </head>
 
 <body class="nav-md">
@@ -78,7 +78,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 						class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<ul class="nav side-menu">
-								<li><a href="AdminHome"><i class="fa fa-home"></i> Home
+								<li><a href="../AdminHome"><i class="fa fa-home"></i> Home
 								</a></li>
 								<li><a href="instancesms"><i class="fa fa-comments-o"></i>
 										Instance SMS </a></li>
@@ -115,31 +115,39 @@ if (session.getAttribute("adminUser").equals("admin")) {
 				<!-- top tiles -->
 				<div class="row">
 					<div class="col-md-4">
-						<button class="btn btn-round btn-success clf"
+						<button class="btn btn-round btn-warning clf"
 							data-toggle="collapse" data-target="#collapseOne"
-							onclick="showf()">
-							<i class="fa fa-folder-o pr-2" aria-hidden="true"></i>Create
+							onclick="showu()">
+							<i class="fa fa-folder-o pr-2" aria-hidden="true"></i>Update
 							Event
 						</button>
 						<!-- /col-md-4 end -->
 					</div>
-
+					<div class="col-md-4">
+						<button class="btn btn-round btn-danger clf"
+							data-toggle="collapse" data-target="#collapseTwo"
+							onclick="showd()">
+							<i class="fa fa-folder-o pr-2" aria-hidden="true"></i>Delete
+							Event
+						</button>
+						<!-- /col-md-4 end -->
+					</div>
 					<!-- /row end -->
 				</div>
 				<div class="row">
-					<div class="col-md-12">
-						<div class="collapse x_content" id="collapseOne"
+				<div class="col-md-12">
+				<div class="collapse x_content" id="collapseOne"
 							style="display: none;">
 							<!--Panel-->
 							<div class="card card-body ml-1"
 								style="background: none; width: auto;">
 								<h4 class="card-title">Create Event</h4>
-								<form:form method="POST" action="createEvent"
+								<form:form method="POST" action="../createEvent"
 									modelAttribute="event" class="form-label-left input_mask">
 									<div class="col-md-6 col-sm-6  form-group has-feedback">
 										<label for="event_name"><form:label path="event_name">Event  Name</form:label></label>
 										<form:input id="event_name" path="event_name"
-											class="form-control" type="text" value="" required="true"
+											class="form-control" type="text" value="${event.getEvent_name()}" required="true"
 											autofocus="true" />
 										<div class="invalid-feedback">
 											<form:errors path="event_name" class="help-inline" />
@@ -149,6 +157,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 									<div class="col-md-6 col-sm-6  form-group has-feedback">
 										<label for="event_type"><form:label path="event_type">Event Type
 										</form:label> </label>
+<%-- 										${event.getEvent_type()} --%>
 										<form:select class="form-control" path="event_type"
 											id="ddlModels" onchange="EnableDisableTextBox(this)">
 											<form:option value="Seminar" label="Seminar" />
@@ -169,7 +178,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 										</form:label> </label>
 										<form:input id="event_start_date" path="event_start_date"
 											class="form-control" type="date" name="eventstartdate"
-											value="" required="true" data-eye="true" />
+											value="${event.getEvent_start_date()}" required="true" data-eye="true" />
 										<div class="invalid-feedback">
 											<form:errors path="event_start_date" class="help-inline" />
 											Event Start Date is required
@@ -180,7 +189,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 												path="event_end_date">Event End Date
 										</form:label> </label>
 										<form:input id="event_end_date" path="event_end_date"
-											class="form-control" type="date" name="eventenddate" value=""
+											class="form-control" type="date" name="eventenddate" value="${event.getEvent_end_date()}"
 											required="true" data-eye="true" />
 										<div class="invalid-feedback">
 											<form:errors path="event_end_date" class="help-inline" />
@@ -194,7 +203,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 										</form:label> </label>
 										<form:input id="event_start_time" path="event_start_time"
 											class="form-control" type="time" name="eventstarttime"
-											value="" required="true" data-eye="true" />
+											value="${event.getEvent_start_time()}" required="true" data-eye="true" />
 										<div class="invalid-feedback">
 											<form:errors path="event_start_time" class="help-inline" />
 											Event Start Time is required
@@ -205,7 +214,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 												path="event_end_time">Event End Time
 										</form:label> </label>
 										<form:input id="event_end_time" path="event_end_time"
-											class="form-control" type="time" name="eventendtime" value=""
+											class="form-control" type="time" name="eventendtime" value="${event.getEvent_end_time()}"
 											required="true" data-eye="true" />
 										<div class="invalid-feedback">
 											<form:errors path="event_end_time" class="help-inline" />
@@ -218,7 +227,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 										</form:label> </label>
 										<form:input id="participents_count" path="participents_count"
 											class="form-control" type="int" name="participentscount"
-											value="" required="true" data-eye="true" />
+											value="${event.getParticipents_count()}" required="true" data-eye="true" />
 										<div class="invalid-feedback">
 											<form:errors path="participents_count" cssClass="error"
 												class="help-inline" />
@@ -231,7 +240,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 										</form:label> </label>
 										<form:input id="event_loacation" path="event_loacation"
 											class="form-control" type="text" name="event_loacation"
-											value="" required="true" data-eye="true" />
+											value="${event.getEvent_loacation()}" required="true" data-eye="true" />
 										<div class="invalid-feedback">
 											<form:errors path="event_loacation" cssClass="error"
 												class="help-inline" />
@@ -241,7 +250,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 									<div class="form-group">
 										<div class="col-md-6 col-sm-6  offset-md-6">
 											<form:button class="btn btn-primary btn-block">
-                                  Create Event
+                                  Update Event
                                   </form:button>
 										</div>
 									</div>
@@ -250,29 +259,8 @@ if (session.getAttribute("adminUser").equals("admin")) {
 							</div>
 
 						</div>
-
-					</div>
+				
 				</div>
-				<div class="row">
-					
-						<c:forEach var="event" items="${allevent}">
-	<%-- 	<form:form method="POST" action="Event"
-									modelAttribute="event" class="form-label-left input_mask">
-									<form:input id="event_name" path="event_name" type="hidden" name="event_name"
-											value="${event.getEvent_name()}"  required="true" data-eye="true" />
-									<form:button class="btn btn-round btn-primary">
-                               <i class="fa fa-folder-open "> ${event.getEvent_name()}</i>
-                                  </form:button>
-								
-						</form:form>	 --%>
-						<div class="col-md-4 col-lg-4">
-						<a href="Event/${event.getEvent_name()}" class="btn btn-round btn-primary"> <i class="fa fa-folder-open "></i>
-										${event.getEvent_name()}</a>
-										</div>
-		</c:forEach>
-
-					
-
 				</div>
 				<!-- /top tiles -->
 			</div>
@@ -282,86 +270,70 @@ if (session.getAttribute("adminUser").equals("admin")) {
 	</div>
 
 	<!-- jQuery -->
-	<script src="assets/vendors/jquery/dist/jquery.min.js"></script>
+	<script src="../assets/vendors/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap -->
-	<script src="assets/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="../assets/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- FastClick -->
-	<script src="assets/vendors/fastclick/lib/fastclick.js"></script>
+	<script src="../assets/vendors/fastclick/lib/fastclick.js"></script>
 	<!-- NProgress -->
-	<script src="assets/vendors/nprogress/nprogress.js"></script>
+	<script src="../assets/vendors/nprogress/nprogress.js"></script>
 	<!-- Chart.js -->
-	<script src="assets/vendors/Chart.js/dist/Chart.min.js"></script>
+	<script src="../assets/vendors/Chart.js/dist/Chart.min.js"></script>
 	<!-- gauge.js -->
-	<script src="assets/vendors/gauge.js/dist/gauge.min.js"></script>
+	<script src="../assets/vendors/gauge.js/dist/gauge.min.js"></script>
 	<!-- bootstrap-progressbar -->
 	<script
-		src="assets/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+		src="../assets/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 	<!-- iCheck -->
-	<script src="assets/vendors/iCheck/icheck.min.js"></script>
+	<script src="../assets/vendors/iCheck/icheck.min.js"></script>
 	<!-- Skycons -->
-	<script src="assets/vendors/skycons/skycons.js"></script>
+	<script src="../assets/vendors/skycons/skycons.js"></script>
 	<!-- Flot -->
-	<script src="assets/vendors/Flot/jquery.flot.js"></script>
-	<script src="assets/vendors/Flot/jquery.flot.pie.js"></script>
-	<script src="assets/vendors/Flot/jquery.flot.time.js"></script>
-	<script src="assets/vendors/Flot/jquery.flot.stack.js"></script>
-	<script src="assets/vendors/Flot/jquery.flot.resize.js"></script>
+	<script src="../assets/vendors/Flot/jquery.flot.js"></script>
+	<script src="../assets/vendors/Flot/jquery.flot.pie.js"></script>
+	<script src="../assets/vendors/Flot/jquery.flot.time.js"></script>
+	<script src="../assets/vendors/Flot/jquery.flot.stack.js"></script>
+	<script src="../assets/vendors/Flot/jquery.flot.resize.js"></script>
 	<!-- Flot plugins -->
-	<script src="assets/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-	<script src="assets/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-	<script src="assets/vendors/flot.curvedlines/curvedLines.js"></script>
+	<script src="../assets/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+	<script src="../assets/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+	<script src="../assets/vendors/flot.curvedlines/curvedLines.js"></script>
 	<!-- DateJS -->
-	<script src="assets/vendors/DateJS/build/date.js"></script>
+	<script src="../assets/vendors/DateJS/build/date.js"></script>
 	<!-- JQVMap -->
-	<script src="assets/vendors/jqvmap/dist/jquery.vmap.js"></script>
-	<script src="assets/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+	<script src="../assets/vendors/jqvmap/dist/jquery.vmap.js"></script>
+	<script src="../assets/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
 	<script
-		src="assets/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+		src="../assets/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
 	<!-- bootstrap-daterangepicker -->
-	<script src="assets/vendors/moment/min/moment.min.js"></script>
+	<script src="../assets/vendors/moment/min/moment.min.js"></script>
 	<script
-		src="assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+		src="../assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
 	<!-- Custom Theme Scripts -->
-	<script src="assets/build/js/custom.min.js"></script>
+	<script src="../assets/build/js/custom.min.js"></script>
 
 </body>
 <script type="text/javascript" charset="utf-8">
-	function showf() {
-		var x = document.getElementById("collapseOne");
-		if (x.style.display === "none") {
-			x.style.display = "block";
-		} else {
-			x.style.display = "none";
-		}
-		var y = document.getElementById("collapsetwo");
-		y.style.display = "none";
-		var z = document.getElementById("collapsethree");
-		z.style.display = "none";
-	}
-	function showu() {
-		var x = document.getElementById("collapseOne");
+function showu() {
+	var x = document.getElementById("collapseOne");
+	if (x.style.display === "none") {
+		x.style.display = "block";
+	} else {
 		x.style.display = "none";
-		var y = document.getElementById("collapsetwo");
-		if (y.style.display === "none") {
-			y.style.display = "block";
-		} else {
-			y.style.display = "none";
-		}
-		var z = document.getElementById("collapsethree");
-		z.style.display = "none";
 	}
-	function showd() {
-		var x = document.getElementById("collapseOne");
+	var y = document.getElementById("collapseTwo");
+	y.style.display = "none";
+}
+function showd() {
+	var x = document.getElementById("collapseTwo");
+	if (x.style.display === "none") {
+		x.style.display = "block";
+	} else {
 		x.style.display = "none";
-		var y = document.getElementById("collapsetwo");
-		y.style.display = "none";
-		var z = document.getElementById("collapsethree");
-		if (z.style.display === "none") {
-			z.style.display = "block";
-		} else {
-			z.style.display = "none";
-		}
 	}
+	var y = document.getElementById("collapseOne");
+	y.style.display = "none";
+}
 </script>
 </html>
