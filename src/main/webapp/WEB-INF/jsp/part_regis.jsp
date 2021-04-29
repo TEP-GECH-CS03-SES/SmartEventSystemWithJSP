@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Forgotten Password</title>
+<title>Participant Registration</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -29,53 +30,61 @@
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
-						  <img src="assets/images/logo.jpg" alt="logo">
-							</div>
+						<img src="assets/images/logo.jpg" alt="logo">
+					</div>
 					<h4 class="card-title" style="text-align: center;">Smart Event
 						System</h4>
 					<br>
 					<div class="card fat">
 						<div class="card-body">
-							<h4 class="card-title">Reset Password</h4>
-							<form:form method="POST" action="reset" modelAttribute="forgot">
+							<h4 class="card-title">Participant Registration</h4>
+							<form:form method="POST" action="register"
+								modelAttribute="partreg">
 								<div class="form-group">
-									<label for="UserName"><form:label path="UserName">User Name</form:label></label>
-									<form:input id="name" path="UserName" class="form-control"
-										type="text" value="" required="true" autofocus="true" />
-									<div class="invalid-feedback">Username is invalid</div>
+									<label for="first_name"><form:label path="first_name">First Name</form:label></label>
+									<form:input id="name" path="first_name" class="form-control"
+										type="text" required="true" autofocus="true" />
+									<div class="invalid-feedback">First Name is invalid</div>
 								</div>
 								<div class="form-group">
-									<label for="Email"><form:label path="UserName">Email Address</form:label></label>
-									<form:input id="Email" path="Email" class="form-control"
-										type="email" value=" " required="true" autofocus="true" />
-									<div class="invalid-feedback">Email is invalid</div>
-								</div>
-								<div class="form-group">
-									<label for="Password"><form:label path="Password">Password</form:label>
+									<label for="last_name"><form:label path="last_name">Last Name</form:label>
 									</label>
-									<form:input id="password" path="Password" class="form-control"
-										type="password" name="password" value="" required="true"
-										data-eye="true" />
-									<div class="invalid-feedback">Password is required</div>
+									<form:input id="last_name" path="last_name"
+										class="form-control" type="text" name="last_name"
+										required="true" data-eye="true" />
+									<div class="invalid-feedback">Last Name is required</div>
 								</div>
 								<div class="form-group">
-									<label for="ConfirmPassword"><form:label path="ConfirmPassword">Confirm Password</form:label>
+									<label for="event_name"><form:label path="event_name">Event Name</form:label>
 									</label>
-									<form:input id="ConfirmPassword" path="ConfirmPassword" class="form-control"
-										type="password" name="ConfirmPassword" value="" required="true"
-										data-eye="true" />
-									<div class="invalid-feedback">Confirm Password is required</div>
+									<form:select class="form-control" path="event_name"
+										id="ddlModels" onchange="EnableDisableTextBox(this)">
+										<form:option value="select"
+												label="select" />
+										<c:forEach var="event" items="${allevent}">
+											<form:option value="${event.getEvent_name()}"
+												label="${event.getEvent_name()}" />
+										</c:forEach>
+									</form:select>
+									<div class="invalid-feedback">Event Name is required</div>
 								</div>
-									<div class="form-group" style="height: 10px;">
-									<label for="login">
-										<a href="/" class="float-right">
-											Login
-										</a>
+								<div class="form-group">
+									<label for="email"><form:label path="email">Email Id</form:label>
 									</label>
+									<form:input id="email" path="email" class="form-control"
+										type="email" name="email" required="true" data-eye="true" />
+									<div class="invalid-feedback">Email is required</div>
+								</div>
+								<div class="form-group">
+									<label for="phone"><form:label path="phone">Phone</form:label>
+									</label>
+									<form:input id="phone" path="phone" class="form-control"
+										type="text" name="phone" required="true" data-eye="true" />
+									<div class="invalid-feedback">Phone is required</div>
 								</div>
 								<div class="form-group m-0">
 									<form:button class="btn btn-primary btn-block">
-                                  ResetPassword
+                                  Register
                                   </form:button>
 								</div>
 

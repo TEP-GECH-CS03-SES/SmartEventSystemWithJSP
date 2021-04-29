@@ -11,3 +11,12 @@ select * from login where username='"+username+"' and password='"+password+"'"
 String upquery = "update login set password='" + password + "'where username='" + username + "'and email ='" + email + "'"
 
 create table event(sl_no int primary key auto_increment , event_name varchar(50) Unique ,event_type varchar(30), event_start_date DATE, event_end_date DATE, event_start_time TIME, event_end_time TIME, event_status int, participents_count int);
+
+
+create table participants  (slno int primary key auto_increment , first_name varchar(20), last_name varchar(20),event_name varchar(50),email varchar(50),phone varchar(15));
+
+create table qrcode (slno int primary key auto_increment, first_name varchar(20), phone varchar(15),event_name varchar(50), text varchar(500), qouted_text varchar(500), inqrcode_name varchar(100),outqrcode_name varchar(100), status int);
+
+
+alter table event add event_loacation varchar(500);
+

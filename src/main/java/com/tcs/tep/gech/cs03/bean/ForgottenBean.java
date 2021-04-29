@@ -6,7 +6,7 @@ public class ForgottenBean {
 	private String Email;
 	private String Password;
 	private String ConfirmPassword;
-	private Boolean confirm;
+	private static Boolean confirm;
 	
 	public ForgottenBean() {
 		super();
@@ -46,7 +46,7 @@ public class ForgottenBean {
 		return confirm;
 	}
 	public void setConfirm(Boolean confirm) {
-		this.confirm = confirm;
+		ForgottenBean.confirm = confirm;
 	}
 
 }

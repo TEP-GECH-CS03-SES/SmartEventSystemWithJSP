@@ -54,7 +54,7 @@ public class LoginBean {
 		return role;
 	}
 	public void setRole(String role) {
-		this.role = role;
+		LoginBean.role = role;
 	}
 	
 }
