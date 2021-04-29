@@ -69,6 +69,24 @@
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-jdbc</artifactId>
 		</dependency>
+		 <!-- SMS DEPENDENCY -->
+		<dependency>
+			<groupId>com.sinch</groupId>
+			<artifactId>sdk-sms</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+		        <!-- QR CODE DEPENDENCY -->
+        	<dependency>
+		<groupId>com.google.zxing</groupId>
+		<artifactId>core</artifactId>
+		<version>3.3.0</version>
+	</dependency>
+	<dependency>
+		<groupId>com.google.zxing</groupId>
+		<artifactId>javase</artifactId>
+		<version>3.3.0</version>
+	</dependency>
+          
 	</dependencies>
 
 	<build>

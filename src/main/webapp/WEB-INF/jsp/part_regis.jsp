@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,8 @@
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
-						  <img src="assets/images/logo.jpg" alt="logo"></div>
+						<img src="assets/images/logo.jpg" alt="logo">
+					</div>
 					<h4 class="card-title" style="text-align: center;">Smart Event
 						System</h4>
 					<br>
@@ -55,9 +57,15 @@
 								<div class="form-group">
 									<label for="event_name"><form:label path="event_name">Event Name</form:label>
 									</label>
-									<form:input id="event_name" path="event_name"
-										class="form-control" type="text" name="event_name"
-										required="true" data-eye="true" />
+									<form:select class="form-control" path="event_name"
+										id="ddlModels" onchange="EnableDisableTextBox(this)">
+										<form:option value="select"
+												label="select" />
+										<c:forEach var="event" items="${allevent}">
+											<form:option value="${event.getEvent_name()}"
+												label="${event.getEvent_name()}" />
+										</c:forEach>
+									</form:select>
 									<div class="invalid-feedback">Event Name is required</div>
 								</div>
 								<div class="form-group">

@@ -17,6 +17,8 @@ import org.springframework.stereotype.Repository;
 import com.tcs.tep.gech.cs03.bean.EventBean;
 import com.tcs.tep.gech.cs03.bean.ForgottenBean;
 import com.tcs.tep.gech.cs03.bean.LoginBean;
+import com.tcs.tep.gech.cs03.bean.ParticipantBean;
+import com.tcs.tep.gech.cs03.bean.QrCodeBean;
 
 @Repository
 public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
@@ -167,8 +169,8 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
 
 				System.out.println("Values inserted");
 
-			}else {
-				
+			} else {
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -177,33 +179,33 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
 
 	public ArrayList<EventBean> getAllEventDetail() {
 		ArrayList<EventBean> allEvent = new ArrayList<EventBean>();
-			try {
-				String getallevent = "select * from event";
-				PreparedStatement ps = conn.prepareStatement(getallevent);
-				ResultSet rs = ps.executeQuery();
-				while (rs.next()) {
-					EventBean eventDetail = new EventBean();
-					eventDetail.setEvent_name(rs.getString("EVENT_NAME"));
-					eventDetail.setEvent_type(rs.getString("EVENT_TYPE"));
-					eventDetail.setEvent_start_date(rs.getDate("EVENT_START_DATE"));
-					eventDetail.setEvent_end_date(rs.getDate("EVENT_END_DATE"));
-					eventDetail.setEvent_start_time(rs.getTime("EVENT_START_TIME").toString());
-					eventDetail.setEvent_end_time(rs.getTime("EVENT_END_TIME").toString());
-					eventDetail.setEvent_status(rs.getInt("EVENT_STATUS")); 
-					eventDetail.setParticipents_count(rs.getInt("PARTICIPENTS_COUNT"));
-					eventDetail.setEvent_loacation(rs.getString("EVENT_LOACATION"));
-					allEvent.add(eventDetail);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}	
+		try {
+			String getallevent = "select * from event";
+			PreparedStatement ps = conn.prepareStatement(getallevent);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				EventBean eventDetail = new EventBean();
+				eventDetail.setEvent_name(rs.getString("EVENT_NAME"));
+				eventDetail.setEvent_type(rs.getString("EVENT_TYPE"));
+				eventDetail.setEvent_start_date(rs.getDate("EVENT_START_DATE"));
+				eventDetail.setEvent_end_date(rs.getDate("EVENT_END_DATE"));
+				eventDetail.setEvent_start_time(rs.getTime("EVENT_START_TIME").toString());
+				eventDetail.setEvent_end_time(rs.getTime("EVENT_END_TIME").toString());
+				eventDetail.setEvent_status(rs.getInt("EVENT_STATUS"));
+				eventDetail.setParticipents_count(rs.getInt("PARTICIPENTS_COUNT"));
+				eventDetail.setEvent_loacation(rs.getString("EVENT_LOACATION"));
+				allEvent.add(eventDetail);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return allEvent;
 	}
 
 	public EventBean getEventDetail(String eventName) {
 		EventBean event = new EventBean();
 		try {
-			String getallevent = "select * from event where EVENT_NAME='"+ eventName+"'";
+			String getallevent = "select * from event where EVENT_NAME='" + eventName + "'";
 			PreparedStatement ps = conn.prepareStatement(getallevent);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -213,14 +215,35 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
 				event.setEvent_end_date(rs.getDate("EVENT_END_DATE"));
 				event.setEvent_start_time(rs.getTime("EVENT_START_TIME").toString());
 				event.setEvent_end_time(rs.getTime("EVENT_END_TIME").toString());
-				event.setEvent_status(rs.getInt("EVENT_STATUS")); 
+				event.setEvent_status(rs.getInt("EVENT_STATUS"));
 				event.setParticipents_count(rs.getInt("PARTICIPENTS_COUNT"));
 				event.setEvent_loacation(rs.getString("EVENT_LOACATION"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}	
-	return event;
+		}
+		return event;
+	}
+
+	public void registerPart(ParticipantBean pb) {
+		System.out.println(pb);
+		try {
+			Statement stmt = conn.createStatement();
+			String insert = "insert into PARTICIPANTS(FIRST_NAME,LAST_NAME,EVENT_NAME,EMAIL,PHONE) values('"
+					+ pb.getFirst_name() + "','" + pb.getLast_name() + "','" + pb.getEvent_name() + "','"
+					+ pb.getEmail() + "','" + pb.getPhone() + "')";
+			stmt.execute(insert);
+			System.out.println("inserted");
+			pb.setRegistered(true);
+		} catch (
+
+		SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void insertQrData(QrCodeBean qrb) {
+		System.out.println(qrb);
 	}
 
 }

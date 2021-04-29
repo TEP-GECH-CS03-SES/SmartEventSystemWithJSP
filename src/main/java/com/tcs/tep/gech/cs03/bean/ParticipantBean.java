@@ -8,6 +8,7 @@ public class ParticipantBean {
 	private String email;
 	private String phone;
 	
+	private boolean registered;
 	@Override
 	public String toString() {
 		return "ParticipantBean [first_name=" + first_name + ", last_name=" + last_name + ", event_name=" + event_name
@@ -54,5 +55,11 @@ public class ParticipantBean {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
+	public boolean isRegistered() {
+		return registered;
+	}
+	public void setRegistered(boolean registered) {
+		this.registered = registered;
+	}
 }

@@ -54,8 +54,10 @@ public class SmartEventSystemController {
 	}
 
 	@GetMapping("/partRegi")
-	public String participantRegister(Model model) {
+	public String participantRegister(Model model, ModelMap modelmap) {
 		ParticipantBean pb = new ParticipantBean();
+		ArrayList<EventBean> allEvent = ss.getAllEventDetail();
+		modelmap.addAttribute("allevent", allEvent);
 		model.addAttribute("partreg", pb);
 		return "part_regis";
 	}
@@ -151,7 +153,7 @@ public class SmartEventSystemController {
 		}
 	}
 	@RequestMapping(value = "/Event/{eventname}", method = RequestMethod.GET)
-	public String Event(Model model,ModelMap modelmap,HttpServletRequest request,@PathVariable String eventname) {
+	public String event(Model model,ModelMap modelmap,HttpServletRequest request,@PathVariable String eventname) {
 		EventBean eb = new EventBean();
 		 session = request.getSession();
 		model.addAttribute("event",eb);
@@ -160,5 +162,11 @@ public class SmartEventSystemController {
 		modelmap.addAttribute("event", Event);
 		session.setAttribute("eventName", eventname);
 		return "Event";
+	}
+	@PostMapping("/register")
+	public String partRegi(@ModelAttribute("partreg")  ParticipantBean pb, Model model,ModelMap modelmap,HttpServletRequest request) {
+//		System.out.println(pb);
+		ss.registerPart(pb);
+		return "succ";
 	}
 }

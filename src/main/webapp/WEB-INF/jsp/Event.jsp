@@ -142,7 +142,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 							<div class="card card-body ml-1"
 								style="background: none; width: auto;">
 								<h4 class="card-title">Create Event</h4>
-								<form:form method="POST" action="../createEvent"
+								<form:form method="POST" action="../updateEvent"
 									modelAttribute="event" class="form-label-left input_mask">
 									<div class="col-md-6 col-sm-6  form-group has-feedback">
 										<label for="event_name"><form:label path="event_name">Event  Name</form:label></label>
