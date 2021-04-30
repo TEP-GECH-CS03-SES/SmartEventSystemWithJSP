@@ -80,9 +80,13 @@ if (session.getAttribute("adminUser").equals("admin")) {
 							<ul class="nav side-menu">
 								<li><a href="../AdminHome"><i class="fa fa-home"></i> Home
 								</a></li>
-								<li><a href="../eventDetail"><i class="fa fa-download"></i>
+								<li><a href="eventDetail"><i class="fa fa-download"></i>
 										Event Details </a></li>
-
+								<li><a href="PartDetail"><i class="fa fa-download"></i>
+										Participants Details </a></li>
+								<li><a href="qrCodeDetail"><i class="fa fa-download"></i>
+										QrCode Details </a></li>
+							
 							</ul>
 						</div>
 					</div>

@@ -31,7 +31,6 @@
        You have Successfully Registered.<br>
         Check your registered mobile for the qrcode.
     </p>
-    <a href="#" id="contBtn" >Continue</a>
   </div>
 
 <style>
