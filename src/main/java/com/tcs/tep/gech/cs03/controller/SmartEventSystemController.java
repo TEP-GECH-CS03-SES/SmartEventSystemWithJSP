@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.tcs.tep.gech.cs03.bean.EventBean;
 import com.tcs.tep.gech.cs03.bean.ForgottenBean;
@@ -34,7 +36,7 @@ public class SmartEventSystemController {
 	HttpSession session;
 
 	@GetMapping("/")
-	public String login(Model model) {
+	public String login(Model model, HttpServletResponse response) {
 		LoginBean lb = new LoginBean();
 		model.addAttribute("login", lb);
 		return "login";
@@ -74,7 +76,7 @@ public class SmartEventSystemController {
 
 	@PostMapping("/varify")
 	public String loginVarify(@ModelAttribute("login") LoginBean login, Model model, ModelMap modelmap,
-			HttpServletRequest request) {
+			HttpServletRequest request) throws IOException {
 		String username = login.getUserName();
 		String password = login.getPassword();
 		EventBean eb = new EventBean();
