@@ -34,7 +34,7 @@ public class QrCodeBean {
 	@Override
 	public String toString() {
 		return "QrCodeBean [FIRST_NAME=" + FIRST_NAME + ", PHONE=" + PHONE + ", EVENT_NAME=" + EVENT_NAME + ", TEXT="
-				+ TEXT + ", QOUTED_TEXT=" +  ", INQRCODE_NAME=" + INQRCODE_NAME + ", OUTQRCODE_NAME="
+				+ TEXT +  ", INQRCODE_NAME=" + INQRCODE_NAME + ", OUTQRCODE_NAME="
 				+ OUTQRCODE_NAME + ", STATUS=" + STATUS + "]";
 	}
 	public String getFIRST_NAME() {

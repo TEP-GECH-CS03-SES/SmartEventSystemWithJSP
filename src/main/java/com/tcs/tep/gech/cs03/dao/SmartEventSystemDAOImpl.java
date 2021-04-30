@@ -205,7 +205,8 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
 	public EventBean getEventDetail(String eventName) {
 		EventBean event = new EventBean();
 		try {
-			String getallevent = "select * from event where EVENT_NAME='" + eventName + "'";
+			String getallevent = "select * from event where EVENT_NAME='" + eventName.toLowerCase() + "'";
+			System.out.println(getallevent);
 			PreparedStatement ps = conn.prepareStatement(getallevent);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -219,6 +220,7 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
 				event.setParticipents_count(rs.getInt("PARTICIPENTS_COUNT"));
 				event.setEvent_loacation(rs.getString("EVENT_LOACATION"));
 			}
+			System.out.println(event);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -226,7 +228,7 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
 	}
 
 	public void registerPart(ParticipantBean pb) {
-		System.out.println(pb);
+//		System.out.println(pb);
 		try {
 			Statement stmt = conn.createStatement();
 			String insert = "insert into PARTICIPANTS(FIRST_NAME,LAST_NAME,EVENT_NAME,EMAIL,PHONE) values('"
@@ -235,15 +237,23 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
 			stmt.execute(insert);
 			System.out.println("inserted");
 			pb.setRegistered(true);
-		} catch (
-
-		SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void insertQrData(QrCodeBean qrb) {
-		System.out.println(qrb);
+//		System.out.println(qrb);
+		try {
+			Statement stmt = conn.createStatement();
+			String insertQrcode = "insert into QRCODE( FIRST_NAME,PHONE,EVENT_NAME,TEXT,INQRCODE_NAME,OUTQRCODE_NAME,STATUS) values('"+
+			qrb.getFIRST_NAME()+"','"+qrb.getPHONE()+"','"+qrb.getEVENT_NAME()+"','"+ qrb.getTEXT()+"','"+ qrb.getINQRCODE_NAME()+"','"+ qrb.getOUTQRCODE_NAME()+"',"+1+")";
+			stmt.execute(insertQrcode);
+			System.out.println("qr code inserted");
+			qrb.setInserted(true);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

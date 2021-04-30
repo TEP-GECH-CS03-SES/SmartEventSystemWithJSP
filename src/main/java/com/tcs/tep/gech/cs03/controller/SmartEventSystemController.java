@@ -157,8 +157,9 @@ public class SmartEventSystemController {
 		EventBean eb = new EventBean();
 		 session = request.getSession();
 		model.addAttribute("event",eb);
-		System.out.println(eventname);
+		System.out.println("controller event :"+eventname);
 		EventBean Event = ss.getEventDetail(eventname);
+		System.out.println(Event);
 		modelmap.addAttribute("event", Event);
 		session.setAttribute("eventName", eventname);
 		return "Event";

@@ -132,6 +132,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 						</button>
 						<!-- /col-md-4 end -->
 					</div>
+					${event}
 					<!-- /row end -->
 				</div>
 				<div class="row">
@@ -141,7 +142,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 							<!--Panel-->
 							<div class="card card-body ml-1"
 								style="background: none; width: auto;">
-								<h4 class="card-title">Create Event</h4>
+								<h4 class="card-title">Update Event</h4>
 								<form:form method="POST" action="../updateEvent"
 									modelAttribute="event" class="form-label-left input_mask">
 									<div class="col-md-6 col-sm-6  form-group has-feedback">
