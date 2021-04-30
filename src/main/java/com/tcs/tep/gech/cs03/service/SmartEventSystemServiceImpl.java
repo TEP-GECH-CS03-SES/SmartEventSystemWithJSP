@@ -19,11 +19,11 @@ public class SmartEventSystemServiceImpl implements SmartEventSystemService {
 
 	public void loginCheck(String username, String password) {
 //	System.out.println(username+"   "+password);
-	sdao.loginCheck(username,password);
+		sdao.loginCheck(username, password);
 	}
 
 	public void updatePassword(String username, String password, String email) {
-	sdao.updatePassword(username,password,email);
+		sdao.updatePassword(username, password, email);
 	}
 
 	public void createEvent(EventBean eb) {
@@ -41,8 +41,8 @@ public class SmartEventSystemServiceImpl implements SmartEventSystemService {
 	public void registerPart(ParticipantBean pb) {
 		QrCodeUtil qru = new QrCodeUtil();
 		sdao.registerPart(pb);
-		if(pb.isRegistered()) {
-			System.out.println(pb.getEvent_name()+pb.getPhone());
+		if (pb.isRegistered()) {
+			System.out.println(pb.getEvent_name() + pb.getPhone());
 			EventBean eventDetail = sdao.getEventDetail(pb.getEvent_name());
 			System.out.println("registered");
 			QrCodeBean qrb = new QrCodeBean();
@@ -50,8 +50,14 @@ public class SmartEventSystemServiceImpl implements SmartEventSystemService {
 			qrb.setFIRST_NAME(pb.getFirst_name());
 			qrb.setPHONE(pb.getPhone());
 			qrb.setSTATUS(1);
-			qrb.setINQRCODE_NAME(pb.getEvent_name() + pb.getFirst_name() + pb.getLast_name() + pb.getPhone() + "in.png");
-			qrb.setOUTQRCODE_NAME(pb.getEvent_name() + pb.getFirst_name() + pb.getLast_name() + pb.getPhone() + "out.png");
+			String inqrcodename = pb.getEvent_name() + pb.getFirst_name() + pb.getLast_name() + pb.getPhone()
+					+ "in.png";
+			inqrcodename = inqrcodename.replaceAll(" ", "_");
+			qrb.setINQRCODE_NAME(inqrcodename);
+			String outqrcodename = pb.getEvent_name() + pb.getFirst_name() + pb.getLast_name() + pb.getPhone()
+					+ "out.png";
+			outqrcodename = outqrcodename.replaceAll(" ", "_");
+			qrb.setOUTQRCODE_NAME(outqrcodename);
 			qrb.setTEXT("Dear " + pb.getFirst_name() + pb.getLast_name() + ",\r\n"
 					+ "We would like to take this opportunity to inform you that we are inviting you to the "
 					+ eventDetail.getEvent_type() + " on " + eventDetail.getEvent_name() + " at "
@@ -62,8 +68,27 @@ public class SmartEventSystemServiceImpl implements SmartEventSystemService {
 					+ eventDetail.getEvent_name() + ".\r\n" + "\r\n" + "We eagerly await your participation in the "
 					+ eventDetail.getEvent_name() + ".\r\n" + "\r\n" + "Thanks");
 			sdao.insertQrData(qrb);
-			qru.createQrCode(eventDetail,pb);
-		}else
+			if(qrb.isInserted()) {
+				qru.createQrCode(eventDetail, pb,qrb);	
+			}
+			
+		} else
 			System.out.println("Not Registered");
+	}
+
+	public void deleteEvent(String id) {
+		sdao.deleteEvent(id);
+	}
+
+	public void updateEvent(String id, EventBean eb) {
+		sdao.updateEvent(id,eb);
+	}
+
+	public ArrayList<ParticipantBean> getAllParticipant() {
+		return sdao.getAllParticipant();
+	}
+
+	public ArrayList<QrCodeBean> getAllQrcodeDetails() {
+		return sdao.getAllQrcodeDetail();
 	}
 }

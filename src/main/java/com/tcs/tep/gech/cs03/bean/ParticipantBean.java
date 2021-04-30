@@ -2,6 +2,7 @@ package com.tcs.tep.gech.cs03.bean;
 
 public class ParticipantBean {
 	
+	private int slno;
 	private  String first_name ;
 	private String last_name; 
 	private String event_name;
@@ -61,5 +62,11 @@ public class ParticipantBean {
 	}
 	public void setRegistered(boolean registered) {
 		this.registered = registered;
+	}
+	public int getSlno() {
+		return slno;
+	}
+	public void setSlno(int slno) {
+		this.slno = slno;
 	}
 }

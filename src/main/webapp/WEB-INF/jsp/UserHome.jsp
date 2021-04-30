@@ -79,12 +79,8 @@ if(session.getAttribute("normUser").equals("user")){
 							<ul class="nav side-menu">
 								<li><a href="UserHome"><i class="fa fa-home"></i> Home
 								</a></li>
-								<li><a href="instancesms"><i class="fa fa-comments-o"></i>
-										Instance SMS </a></li>
-								<li><a href="spreadsheet"><i class="fa fa-file-excel-o"></i>
-										Google Sheets</a></li>
-								<li><a href="sendQrcode"><i class="fa fa-comments-o"></i>
-										Share QrCode </a></li>
+								<li><a href="eventDetail"><i class="fa fa-download"></i>
+										Event Details </a></li>
 
 							</ul>
 						</div>

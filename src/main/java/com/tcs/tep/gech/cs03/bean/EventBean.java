@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 
 public class EventBean {
 
+	private int id;
 	@NotEmpty(message = "Event Name cannot be null")
 	private String event_name;
 	@NotEmpty(message = "Event Type cannot be null")
@@ -39,13 +40,15 @@ public class EventBean {
 	
 	
 	private boolean already_Present;
+
+
 	@Override
 	public String toString() {
-		return "EventBean [event_name=" + event_name + ", event_type=" + event_type + ", eventtype=" + eventtype
-				+ ", event_start_date=" + event_start_date + ", event_end_date=" + event_end_date
+		return "EventBean [id=" + id + ", event_name=" + event_name + ", event_type=" + event_type + ", eventtype="
+				+ eventtype + ", event_start_date=" + event_start_date + ", event_end_date=" + event_end_date
 				+ ", event_start_time=" + event_start_time + ", event_end_time=" + event_end_time + ", event_status="
 				+ event_status + ", participents_count=" + participents_count + ", event_loacation=" + event_loacation
-				+ "]";
+				+ ", already_Present=" + already_Present + "]";
 	}
 
 	public EventBean(@NotEmpty(message = "Event Name cannot be null") String event_name,
@@ -159,6 +162,14 @@ public class EventBean {
 
 	public void setAlready_Present(boolean already_Present) {
 		this.already_Present = already_Present;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
