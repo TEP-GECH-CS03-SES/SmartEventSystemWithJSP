@@ -80,13 +80,12 @@ if (session.getAttribute("adminUser").equals("admin")) {
 							<ul class="nav side-menu">
 								<li><a href="AdminHome"><i class="fa fa-home"></i> Home
 								</a></li>
-								<li><a href="instancesms"><i class="fa fa-comments-o"></i>
-										Instance SMS </a></li>
-								<li><a href="spreadsheet"><i class="fa fa-file-excel-o"></i>
-										Google Sheets</a></li>
-								<li><a href="sendQrcode"><i class="fa fa-comments-o"></i>
-										Share QrCode </a></li>
-
+								<li><a href="eventDetail"><i class="fa fa-download"></i>
+										Event Details </a></li>
+								<li><a href="PartDetail"><i class="fa fa-download"></i>
+										Participants Details </a></li>
+								<li><a href="qrCodeDetail"><i class="fa fa-download"></i>
+										QrCode Details </a></li>
 							</ul>
 						</div>
 					</div>
@@ -254,9 +253,9 @@ if (session.getAttribute("adminUser").equals("admin")) {
 					</div>
 				</div>
 				<div class="row">
-					
-						<c:forEach var="event" items="${allevent}">
-	<%-- 	<form:form method="POST" action="Event"
+
+					<c:forEach var="event" items="${allevent}">
+						<%-- 	<form:form method="POST" action="Event"
 									modelAttribute="event" class="form-label-left input_mask">
 									<form:input id="event_name" path="event_name" type="hidden" name="event_name"
 											value="${event.getEvent_name()}"  required="true" data-eye="true" />
@@ -266,12 +265,14 @@ if (session.getAttribute("adminUser").equals("admin")) {
 								
 						</form:form>	 --%>
 						<div class="col-md-4 col-lg-4">
-						<a href="Event/${event.getEvent_name()}" class="btn btn-round btn-primary"> <i class="fa fa-folder-open "></i>
-										${event.getEvent_name()}</a>
-										</div>
-		</c:forEach>
+							<a href="Event/${event.getId()}"
+								class="btn btn-round btn-primary"> <i
+								class="fa fa-folder-open "></i> ${event.getEvent_name()}
+							</a>
+						</div>
+					</c:forEach>
 
-					
+
 
 				</div>
 				<!-- /top tiles -->

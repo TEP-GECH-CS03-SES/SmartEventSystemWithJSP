@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import com.tcs.tep.gech.cs03.bean.EventBean;
 import com.tcs.tep.gech.cs03.bean.ForgottenBean;
 import com.tcs.tep.gech.cs03.bean.LoginBean;
 import com.tcs.tep.gech.cs03.bean.ParticipantBean;
+import com.tcs.tep.gech.cs03.bean.QrCodeBean;
 import com.tcs.tep.gech.cs03.service.SmartEventSystemServiceImpl;
 
 @Controller
@@ -28,8 +30,9 @@ public class SmartEventSystemController {
 
 	@Autowired
 	private SmartEventSystemServiceImpl ss;
-	
+
 	HttpSession session;
+
 	@GetMapping("/")
 	public String login(Model model) {
 		LoginBean lb = new LoginBean();
@@ -38,7 +41,7 @@ public class SmartEventSystemController {
 	}
 
 	@GetMapping("/AdminHome")
-	public String adminHome(Model model,ModelMap modelmap) {
+	public String adminHome(Model model, ModelMap modelmap) {
 		EventBean eb = new EventBean();
 		model.addAttribute("event", eb);
 		ArrayList<EventBean> allEvent = ss.getAllEventDetail();
@@ -70,7 +73,8 @@ public class SmartEventSystemController {
 	}
 
 	@PostMapping("/varify")
-	public String loginVarify(@ModelAttribute("login") LoginBean login, Model model,ModelMap modelmap, HttpServletRequest request) {
+	public String loginVarify(@ModelAttribute("login") LoginBean login, Model model, ModelMap modelmap,
+			HttpServletRequest request) {
 		String username = login.getUserName();
 		String password = login.getPassword();
 		EventBean eb = new EventBean();
@@ -81,7 +85,7 @@ public class SmartEventSystemController {
 		boolean Admin = login.isAdmin();
 		String role = login.getRole();
 		System.out.println(validUser + "        " + Admin);
-		  session = request.getSession();
+		session = request.getSession();
 		if (validUser == true && Admin == true) {
 			session.setAttribute("adminUser", role);
 			ArrayList<EventBean> allEvent = ss.getAllEventDetail();
@@ -124,50 +128,99 @@ public class SmartEventSystemController {
 	}
 
 	@PostMapping("/createEvent")
-	public String createEvent(@ModelAttribute("event") EventBean eb, Model model,ModelMap modelmap,HttpServletRequest request) {
+	public String createEvent(@ModelAttribute("event") EventBean eb, Model model, ModelMap modelmap,
+			HttpServletRequest request) {
 		model.addAttribute("event", eb);
 		String event_name = eb.getEvent_name();
-		/*		String event_type = eb.getEvent_type();
-		Date event_start_date = eb.getEvent_start_date();
-		Date event_end_date = eb.getEvent_end_date();
-		String event_start_time = eb.getEvent_start_time();
-		String event_end_time = eb.getEvent_end_time();
-		int event_status = eb.getEvent_status();
-		int participents_count = eb.getParticipents_count(); // System.out.println(eb);
-	
-		System.out.println(event_name + " " + event_type + "   " + event_start_date + "   " + event_end_date + "  "
-				+ event_start_time + "  " + event_end_time + " " + event_status + " " + participents_count);
-*/
+		/*
+		 * String event_type = eb.getEvent_type(); Date event_start_date =
+		 * eb.getEvent_start_date(); Date event_end_date = eb.getEvent_end_date();
+		 * String event_start_time = eb.getEvent_start_time(); String event_end_time =
+		 * eb.getEvent_end_time(); int event_status = eb.getEvent_status(); int
+		 * participents_count = eb.getParticipents_count(); // System.out.println(eb);
+		 * 
+		 * System.out.println(event_name + " " + event_type + "   " + event_start_date +
+		 * "   " + event_end_date + "  " + event_start_time + "  " + event_end_time +
+		 * " " + event_status + " " + participents_count);
+		 */
 		ss.createEvent(eb);
-		  session = request.getSession();
-		if(eb.isAlready_Present()) {
+		session = request.getSession();
+		if (eb.isAlready_Present()) {
 			session.setAttribute("eventName", event_name);
 			EventBean Event = ss.getEventDetail(event_name);
 			modelmap.addAttribute("event", Event);
 			return "Event";
-		}else {
+		} else {
 			session.setAttribute("eventName", event_name);
 			EventBean Event = ss.getEventDetail(event_name);
 			modelmap.addAttribute("event", Event);
-			return "Event";	
+			return "Event";
 		}
 	}
-	@RequestMapping(value = "/Event/{eventname}", method = RequestMethod.GET)
-	public String event(Model model,ModelMap modelmap,HttpServletRequest request,@PathVariable String eventname) {
+
+	@RequestMapping(value = "/Event/{eventid}", method = RequestMethod.GET)
+	public String event(Model model, ModelMap modelmap, HttpServletRequest request, @PathVariable String eventid) {
 		EventBean eb = new EventBean();
-		 session = request.getSession();
-		model.addAttribute("event",eb);
-		System.out.println("controller event :"+eventname);
-		EventBean Event = ss.getEventDetail(eventname);
+		session = request.getSession();
+		model.addAttribute("event", eb);
+		System.out.println("controller event :" + eventid);
+		EventBean Event = ss.getEventDetail(eventid);
 		System.out.println(Event);
 		modelmap.addAttribute("event", Event);
-		session.setAttribute("eventName", eventname);
+		session.setAttribute("eventName", eventid);
 		return "Event";
 	}
+
 	@PostMapping("/register")
-	public String partRegi(@ModelAttribute("partreg")  ParticipantBean pb, Model model,ModelMap modelmap,HttpServletRequest request) {
+	public String partRegi(@ModelAttribute("partreg") ParticipantBean pb, Model model, ModelMap modelmap,
+			HttpServletRequest request) {
 //		System.out.println(pb);
 		ss.registerPart(pb);
 		return "succ";
 	}
+
+	@GetMapping("/succ")
+	public String succ() {
+		return "succ";
+	}
+
+	@GetMapping(value = "/Event/delete/{id}")
+	public String deleteEvent(@PathVariable String id, @ModelAttribute("event") EventBean eb) throws SQLException {
+		ss.deleteEvent(id);
+		return "redirect:../../AdminHome";
+	}
+
+	@RequestMapping(value = "/updateEvent/{id}", method = RequestMethod.GET)
+	public String updateEvent(@ModelAttribute("event") EventBean eb, @PathVariable String id) throws SQLException {
+		System.out.println("id" + id);
+		System.out.println("event : " + eb);
+		ss.updateEvent(id, eb);
+		return "redirect:/AdminHome";
+	}
+
+	@GetMapping("/eventDetail")
+	public String eventDetail(Model model, ModelMap modelmap) {
+		EventBean eb = new EventBean();
+		model.addAttribute("event", eb);
+		ArrayList<EventBean> allEvent = ss.getAllEventDetail();
+		modelmap.addAttribute("allevent", allEvent);
+		return "eventDetail";
+	}
+
+	@GetMapping("/PartDetail")
+	public String PartDetail(Model model, ModelMap modelmap) {
+		ArrayList<ParticipantBean> allParticipant = ss.getAllParticipant();
+//		System.out.println(allParticipant);
+		modelmap.addAttribute("allParticipant", allParticipant);
+		return "PartDetail";
+	}
+
+	@GetMapping("/qrCodeDetail")
+	public String qrCodeDetail(Model model, ModelMap modelmap) {
+		ArrayList<QrCodeBean> allQrCode = ss.getAllQrcodeDetails();
+//		System.out.println(allQrCode);
+		modelmap.addAttribute("allQrCode", allQrCode);
+		return "qrCodeDetail";
+	}
+
 }

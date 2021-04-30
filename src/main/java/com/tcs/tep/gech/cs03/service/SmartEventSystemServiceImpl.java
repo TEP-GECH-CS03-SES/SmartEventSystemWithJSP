@@ -75,4 +75,20 @@ public class SmartEventSystemServiceImpl implements SmartEventSystemService {
 		} else
 			System.out.println("Not Registered");
 	}
+
+	public void deleteEvent(String id) {
+		sdao.deleteEvent(id);
+	}
+
+	public void updateEvent(String id, EventBean eb) {
+		sdao.updateEvent(id,eb);
+	}
+
+	public ArrayList<ParticipantBean> getAllParticipant() {
+		return sdao.getAllParticipant();
+	}
+
+	public ArrayList<QrCodeBean> getAllQrcodeDetails() {
+		return sdao.getAllQrcodeDetail();
+	}
 }

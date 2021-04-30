@@ -2,6 +2,7 @@ package com.tcs.tep.gech.cs03.bean;
 
 public class QrCodeBean {
 
+	private int slno;
 	private String FIRST_NAME;
 	private String PHONE;
 	private String EVENT_NAME;
@@ -78,6 +79,12 @@ public class QrCodeBean {
 	}
 	public void setSTATUS(int sTATUS) {
 		STATUS = sTATUS;
+	}
+	public int getSlno() {
+		return slno;
+	}
+	public void setSlno(int slno) {
+		this.slno = slno;
 	} 
 	
 }

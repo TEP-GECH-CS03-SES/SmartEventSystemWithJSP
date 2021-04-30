@@ -185,6 +185,7 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				EventBean eventDetail = new EventBean();
+				eventDetail.setId(rs.getInt("sl_no"));
 				eventDetail.setEvent_name(rs.getString("EVENT_NAME"));
 				eventDetail.setEvent_type(rs.getString("EVENT_TYPE"));
 				eventDetail.setEvent_start_date(rs.getDate("EVENT_START_DATE"));
@@ -202,23 +203,34 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
 		return allEvent;
 	}
 
-	public EventBean getEventDetail(String eventName) {
+	public EventBean getEventDetail(String eventid) {
 		EventBean event = new EventBean();
 		try {
-			String getallevent = "select * from event where EVENT_NAME='" + eventName.toLowerCase() + "'";
-			System.out.println(getallevent);
+			System.out.println("event ID : "+eventid);
+			String getallevent = "select * from event ";
+//					+ "where EVENT_NAME='" + eventName.toLowerCase() + "'";
+
+//			System.out.println(getallevent);
 			PreparedStatement ps = conn.prepareStatement(getallevent);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				event.setEvent_name(rs.getString("EVENT_NAME"));
-				event.setEvent_type(rs.getString("EVENT_TYPE"));
-				event.setEvent_start_date(rs.getDate("EVENT_START_DATE"));
-				event.setEvent_end_date(rs.getDate("EVENT_END_DATE"));
-				event.setEvent_start_time(rs.getTime("EVENT_START_TIME").toString());
-				event.setEvent_end_time(rs.getTime("EVENT_END_TIME").toString());
-				event.setEvent_status(rs.getInt("EVENT_STATUS"));
-				event.setParticipents_count(rs.getInt("PARTICIPENTS_COUNT"));
-				event.setEvent_loacation(rs.getString("EVENT_LOACATION"));
+				System.out.println(rs.getString("EVENT_NAME"));
+//				System.out.println(rs.getString("EVENT_NAME").toLowerCase());
+//				System.out.println(rs.getString("EVENT_NAME").toLowerCase().equalsIgnoreCase(eventName));
+				System.out.println(rs.getString("EVENT_NAME").equals(eventid) + "     " + rs.getInt("sl_no"));
+				if (rs.getString("sl_no").equals(eventid) || rs.getString("EVENT_NAME").equals(eventid)) {
+					System.out.println(rs.getString("EVENT_NAME"));
+					event.setId(rs.getInt("sl_no"));
+					event.setEvent_name(rs.getString("EVENT_NAME"));
+					event.setEvent_type(rs.getString("EVENT_TYPE"));
+					event.setEvent_start_date(rs.getDate("EVENT_START_DATE"));
+					event.setEvent_end_date(rs.getDate("EVENT_END_DATE"));
+					event.setEvent_start_time(rs.getTime("EVENT_START_TIME").toString());
+					event.setEvent_end_time(rs.getTime("EVENT_END_TIME").toString());
+					event.setEvent_status(rs.getInt("EVENT_STATUS"));
+					event.setParticipents_count(rs.getInt("PARTICIPENTS_COUNT"));
+					event.setEvent_loacation(rs.getString("EVENT_LOACATION"));
+				}
 			}
 			System.out.println(event);
 		} catch (SQLException e) {
@@ -246,14 +258,124 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
 //		System.out.println(qrb);
 		try {
 			Statement stmt = conn.createStatement();
-			String insertQrcode = "insert into QRCODE( FIRST_NAME,PHONE,EVENT_NAME,TEXT,INQRCODE_NAME,OUTQRCODE_NAME,STATUS) values('"+
-			qrb.getFIRST_NAME()+"','"+qrb.getPHONE()+"','"+qrb.getEVENT_NAME()+"','"+ qrb.getTEXT()+"','"+ qrb.getINQRCODE_NAME()+"','"+ qrb.getOUTQRCODE_NAME()+"',"+1+")";
+			String insertQrcode = "insert into QRCODE( FIRST_NAME,PHONE,EVENT_NAME,TEXT,INQRCODE_NAME,OUTQRCODE_NAME,STATUS) values('"
+					+ qrb.getFIRST_NAME() + "','" + qrb.getPHONE() + "','" + qrb.getEVENT_NAME() + "','" + qrb.getTEXT()
+					+ "','" + qrb.getINQRCODE_NAME() + "','" + qrb.getOUTQRCODE_NAME() + "'," + 1 + ")";
 			stmt.execute(insertQrcode);
 			System.out.println("qr code inserted");
 			qrb.setInserted(true);
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
+	public void deleteEvent(String id) {
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			String delete = "delete from event where sl_no ='" + id + "'";
+			stmt.executeUpdate(delete);
+			System.out.println("Deleted");
+			stmt.closeOnCompletion();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateEvent(String id, EventBean eb) {
+		Statement stmt = null;
+		try {
+			stmt = conn.createStatement();
+			String select = "select * from event where sl_no =" + id + "";
+			PreparedStatement ps = conn.prepareStatement(select);
+			ResultSet rs = ps.executeQuery();
+			Time event_Start_Time = null;
+			Time event_start_time;
+			Time event_End_Time = null;
+			Time event_end_time;
+			while (rs.next()) {
+				event_Start_Time = rs.getTime("EVENT_START_TIME");
+				event_End_Time = rs.getTime("EVENT_END_TIME");
+			}
+			String event_name = eb.getEvent_name();
+			String event_type = eb.getEvent_type();
+			Date event_start_date = eb.getEvent_start_date();
+			Date event_end_date = eb.getEvent_end_date();
+			if (eb.getEvent_start_time().equals("00:00")) {
+				event_start_time = event_Start_Time;
+			} else {
+				System.out.println(eb.getEvent_start_time());
+				event_start_time = Time.valueOf(eb.getEvent_start_time());
+			}
+			if (eb.getEvent_end_time().equals("00:00")) {
+				event_end_time = event_End_Time;
+			} else {
+				event_end_time = Time.valueOf(eb.getEvent_end_time());
+			}
+			int participents_count = eb.getParticipents_count();
+			String event_location = eb.getEvent_loacation();
+			System.out.println(eb);
+
+			String update = "update event set EVENT_NAME = '" + event_name + "',EVENT_TYPE='" + event_type
+					+ "', EVENT_START_DATE='" + event_start_date + "', EVENT_END_DATE ='" + event_end_date
+					+ "', EVENT_START_TIME='" + event_start_time + "', EVENT_END_TIME='" + event_end_time
+					+ "',PARTICIPENTS_COUNT='" + participents_count + "', EVENT_LOACATION ='" + event_location
+					+ "' where sl_no =" + id + "";
+			stmt.executeUpdate(update);
+			System.out.println("updated");
+			stmt.closeOnCompletion();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ArrayList<ParticipantBean> getAllParticipant() {
+		ArrayList<ParticipantBean> allParticipants = new ArrayList<ParticipantBean>();
+		try {
+			String getallevent = "SELECT * FROM PARTICIPANTS ";
+			PreparedStatement ps = conn.prepareStatement(getallevent);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				ParticipantBean participants = new ParticipantBean();
+				participants.setSlno(rs.getInt("SLNO"));
+				participants.setFirst_name(rs.getString("FIRST_NAME"));
+				participants.setLast_name(rs.getString("LAST_NAME"));
+				participants.setEvent_name(rs.getString("EVENT_NAME"));
+				participants.setEmail(rs.getString("EMAIL"));
+				participants.setPhone(rs.getString("PHONE"));
+//				System.out.println(participants);
+				allParticipants.add(participants);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+//		System.out.println(allParticipants);
+		return allParticipants;
+	}
+
+	public ArrayList<QrCodeBean> getAllQrcodeDetail() {
+		ArrayList<QrCodeBean> allQrcodeDetail = new ArrayList<QrCodeBean>();
+		try {
+			String getallevent = "select * from QRCODE";
+			PreparedStatement ps = conn.prepareStatement(getallevent);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				QrCodeBean qrcodeDetail = new QrCodeBean();
+				qrcodeDetail.setSlno(rs.getInt("SLNO"));
+				qrcodeDetail.setFIRST_NAME(rs.getString("FIRST_NAME"));
+				qrcodeDetail.setPHONE(rs.getString("PHONE"));
+				qrcodeDetail.setEVENT_NAME(rs.getString("EVENT_NAME"));
+				qrcodeDetail.setTEXT(rs.getString("TEXT"));
+				qrcodeDetail.setINQRCODE_NAME(rs.getString("INQRCODE_NAME"));
+				qrcodeDetail.setOUTQRCODE_NAME(rs.getString("OUTQRCODE_NAME"));
+				qrcodeDetail.setSTATUS(rs.getInt("STATUS"));
+//				System.out.println(qrcodeDetail);
+				allQrcodeDetail.add(qrcodeDetail);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+//		System.out.println(allQrcodeDetail);
+		return allQrcodeDetail;
+	}
 }

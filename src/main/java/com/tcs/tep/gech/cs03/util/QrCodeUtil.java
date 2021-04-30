@@ -36,7 +36,9 @@ public class QrCodeUtil {
 			fullPath = URLDecoder.decode(path, "UTF-8");
 			System.out.println("Full Path : " + fullPath);
 			fullPath = fullPath.replace("target/classes/", "");
+			System.out.println("Full Path : " + fullPath);
 			fullPath = fullPath + "src/main/resources/event/" + qrb.getEVENT_NAME().replaceAll(" ", "_") + "/";
+			System.out.println("Full Path : " + fullPath);
 			fullPath = fullPath.replace("\\", "/").substring(1);
 			createFolder(fullPath);
 			System.out.println("Full Path : " + fullPath);
