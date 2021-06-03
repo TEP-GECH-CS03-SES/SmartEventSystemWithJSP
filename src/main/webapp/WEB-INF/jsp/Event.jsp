@@ -10,7 +10,9 @@ session = request.getSession();
 System.out.println(session.getAttribute("adminUser"));
 if (session.getAttribute("adminUser").equals("admin")) {
 
-} else {
+}else if (session.getAttribute("adminUser").equals("user")) {
+
+}else {
 	response.sendRedirect("/logout");
 }
 %>
@@ -78,14 +80,29 @@ if (session.getAttribute("adminUser").equals("admin")) {
 						class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<ul class="nav side-menu">
-								<li><a href="../AdminHome"><i class="fa fa-home"></i> Home
+							<%if (session.getAttribute("adminUser").equals("admin")) { %>
+							<li><a href="../AdminHome"><i class="fa fa-home"></i> Home
 								</a></li>
-								<li><a href="eventDetail"><i class="fa fa-download"></i>
+						<% 
+							} else {%>
+							<li><a href="../UserHome"><i class="fa fa-home"></i> Home
+								</a></li>
+								<%}%>
+								<!-- <li><a href="../AdminHome"><i class="fa fa-home"></i> Home
+								</a></li> -->
+								<li><a href="../eventDetail"><i class="fa fa-download"></i>
 										Event Details </a></li>
-								<li><a href="PartDetail"><i class="fa fa-download"></i>
+								<li><a href="../PartDetail"><i class="fa fa-download"></i>
 										Participants Details </a></li>
-								<li><a href="qrCodeDetail"><i class="fa fa-download"></i>
+								<li><a href="../qrCodeDetail"><i class="fa fa-download"></i>
 										QrCode Details </a></li>
+										<%if (session.getAttribute("adminUser").equals("admin")) { %>
+<li><a href="../adduser"><i class="fa fa-user"></i>
+										Add User </a></li>
+<% 
+} else{
+
+	}%>
 							
 							</ul>
 						</div>
@@ -113,6 +130,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 			<!-- page content -->
 			<div class="right_col" role="main">
 				<!-- top tiles -->
+				<%if (session.getAttribute("adminUser").equals("admin")) { %>
 				<div class="row">
 					<div class="col-md-4">
 						<button class="btn btn-round btn-warning clf"
@@ -130,6 +148,24 @@ if (session.getAttribute("adminUser").equals("admin")) {
 					</div>
 					<!-- /row end -->
 				</div>
+<% 
+}else if (session.getAttribute("adminUser").equals("user")) {
+	%>
+	<div class="row">
+					<div class="col-md-4">
+						<button class="btn btn-round btn-warning clf"
+							data-toggle="collapse" data-target="#collapseOne"
+							onclick="showu()">
+							<i class="fa fa-folder-o pr-2" aria-hidden="true"></i>Update
+							Event
+						</button>
+						<!-- /col-md-4 end -->
+					</div>
+					<!-- /row end -->
+				</div> <%
+} else{
+
+	}%>
 				<div class="row">
 				<div class="col-md-12">
 				<div class="collapse x_content" id="collapseOne"

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tcs.tep.gech.cs03.bean.AddUserBean;
 import com.tcs.tep.gech.cs03.bean.EventBean;
 import com.tcs.tep.gech.cs03.bean.ParticipantBean;
 import com.tcs.tep.gech.cs03.bean.QrCodeBean;
@@ -28,6 +29,9 @@ public class SmartEventSystemServiceImpl implements SmartEventSystemService {
 
 	public void createEvent(EventBean eb) {
 		sdao.createEvent(eb);
+	}
+	public void createUser(AddUserBean ub) {
+		sdao.createUser(ub);
 	}
 
 	public ArrayList<EventBean> getAllEventDetail() {

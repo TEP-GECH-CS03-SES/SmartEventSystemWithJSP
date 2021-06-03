@@ -14,6 +14,7 @@ import java.sql.Statement;
 
 import org.springframework.stereotype.Repository;
 
+import com.tcs.tep.gech.cs03.bean.AddUserBean;
 import com.tcs.tep.gech.cs03.bean.EventBean;
 import com.tcs.tep.gech.cs03.bean.ForgottenBean;
 import com.tcs.tep.gech.cs03.bean.LoginBean;
@@ -173,6 +174,41 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
 
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public void createUser(AddUserBean ub) {
+		Statement stmt = null;
+		try {
+			stmt = conn.createStatement();
+			String username = ub.getUserName();
+			String email = ub.getEmail();
+			String phone = ub.getPhone();
+			String role = "user";
+//			System.out.println(ub);
+			String select = "select * from login";
+			boolean present = false;
+			PreparedStatement ps = conn.prepareStatement(select);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				if (rs.getString("username").equals(username) && rs.getString("email").equals(email) && rs.getString("phone").equals(phone)){
+					present = true;
+					AddUserBean.setConfirm(true);
+					break;
+				}
+			}
+			if(!present) {
+				String insertEvent = "insert into login(USERNAME,EMAIL,PHONE, ROLE ) values "
+						+ "('" + username + "','" + email + "','" + phone + "','" + role + "')";
+				stmt.execute(insertEvent);
+				AddUserBean.setConfirm(true);
+				System.out.println("Values inserted");	
+			}else {
+				AddUserBean.setConfirm(false);
+				System.out.println("Values Already inserted");	
+			}
+			} catch (SQLException e) {
+				
 			e.printStackTrace();
 		}
 	}

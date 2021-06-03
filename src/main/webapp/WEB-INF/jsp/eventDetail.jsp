@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="assets/images/logo.ico" type="image/ico" />
-<title>Admin</title>
+<title>Event Details</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
@@ -88,7 +88,7 @@
 					<div class="profile clearfix">
 						<div class="profile_info">
 							<span>Welcome,</span>
-							<h2>Admin</h2>
+							<h2><%=session.getAttribute("adminUser")%></h2>
 							<%-- <h2><%=session.getAttribute("adminUser")%> --%>
 							</h2>
 						</div>
@@ -102,14 +102,27 @@
 						class="main_menu_side hidden-print main_menu">
 						<div class="menu_section">
 							<ul class="nav side-menu">
-								<li><a href="AdminHome"><i class="fa fa-home"></i> Home
+							<%if (session.getAttribute("adminUser").equals("admin")) { %>
+							<li><a href="AdminHome"><i class="fa fa-home"></i> Home
 								</a></li>
+						<% 
+							} else {%>
+							<li><a href="UserHome"><i class="fa fa-home"></i> Home
+								</a></li>
+								<%}%>
 								<li><a href="eventDetail"><i class="fa fa-download"></i>
 										Event Details </a></li>
 								<li><a href="PartDetail"><i class="fa fa-download"></i>
 										Participants Details </a></li>
 								<li><a href="qrCodeDetail"><i class="fa fa-download"></i>
 										QrCode Details </a></li>
+										<%if (session.getAttribute("adminUser").equals("admin")) { %>
+<li><a href="adduser"><i class="fa fa-user"></i>
+										Add User </a></li>
+<% 
+} else{
+
+	}%>
 							
 							</ul>
 						</div>

@@ -1,23 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%
- session = request.getSession(); 
-System.out.println(session.getAttribute("normUser"));
-if(session.getAttribute("normUser").equals("user")){
-	
-}else{
-	response.sendRedirect("/logout"); 
+session = request.getSession();
+System.out.println(session.getAttribute("adminUser"));
+if (session.getAttribute("adminUser").equals("user")) {
+
+} else {
+	response.sendRedirect("/logout");
 }
 %>
 <meta charset="ISO-8859-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="assets/images/logo.ico" type="image/ico" />
-<title>User</title>
+<title>user</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
@@ -64,7 +65,7 @@ if(session.getAttribute("normUser").equals("user")){
 					<div class="profile clearfix">
 						<div class="profile_info">
 							<span>Welcome,</span>
-							<h2><%=session.getAttribute("normUser")%>
+							<h2><%=session.getAttribute("adminUser")%>
 							</h2>
 						</div>
 					</div>
@@ -81,7 +82,10 @@ if(session.getAttribute("normUser").equals("user")){
 								</a></li>
 								<li><a href="eventDetail"><i class="fa fa-download"></i>
 										Event Details </a></li>
-
+								<li><a href="PartDetail"><i class="fa fa-download"></i>
+										Participants Details </a></li>
+								<li><a href="qrCodeDetail"><i class="fa fa-download"></i>
+										QrCode Details </a></li>
 							</ul>
 						</div>
 					</div>
@@ -118,26 +122,157 @@ if(session.getAttribute("normUser").equals("user")){
 						</button>
 						<!-- /col-md-4 end -->
 					</div>
+
 					<!-- /row end -->
 				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="collapse x_content" id="collapseOne"
 							style="display: none;">
-							<h1>Hello</h1>
+							<!--Panel-->
+							<div class="card card-body ml-1"
+								style="background: none; width: auto;">
+								<h4 class="card-title">Create Event</h4>
+								<form:form method="POST" action="createEvent"
+									modelAttribute="event" class="form-label-left input_mask">
+									<div class="col-md-6 col-sm-6  form-group has-feedback">
+										<label for="event_name"><form:label path="event_name">Event  Name</form:label></label>
+										<form:input id="event_name" path="event_name"
+											class="form-control" type="text" value="" required="true"
+											autofocus="true" />
+										<div class="invalid-feedback">
+											<form:errors path="event_name" class="help-inline" />
+											Event Name is invalid
+										</div>
+									</div>
+									<div class="col-md-6 col-sm-6  form-group has-feedback">
+										<label for="event_type"><form:label path="event_type">Event Type
+										</form:label> </label>
+										<form:select class="form-control" path="event_type"
+											id="ddlModels" onchange="EnableDisableTextBox(this)">
+											<form:option value="Seminar" label="Seminar" />
+											<form:option value="Paper Presentation"
+												label="Paper Presentation" />
+											<form:option value="BirthDay" label="BirthDay" />
+											<form:option value="Marriage" label="Marriage" />
+											<form:option value="Other" label="Other" />
+										</form:select>
+										<div class="invalid-feedback">
+											<form:errors path="event_type" class="help-inline" />
+											Event type is required
+										</div>
+									</div>
+									<div class="col-md-6 col-sm-6  form-group has-feedback">
+										<label for="event_start_date"><form:label
+												path="event_start_date">Event Start Date
+										</form:label> </label>
+										<form:input id="event_start_date" path="event_start_date"
+											class="form-control" type="date" name="eventstartdate"
+											value="" required="true" data-eye="true" />
+										<div class="invalid-feedback">
+											<form:errors path="event_start_date" class="help-inline" />
+											Event Start Date is required
+										</div>
+									</div>
+									<div class="col-md-6 col-sm-6  form-group has-feedback">
+										<label for="event_end_date"><form:label
+												path="event_end_date">Event End Date
+										</form:label> </label>
+										<form:input id="event_end_date" path="event_end_date"
+											class="form-control" type="date" name="eventenddate" value=""
+											required="true" data-eye="true" />
+										<div class="invalid-feedback">
+											<form:errors path="event_end_date" class="help-inline" />
+											Event End Date is required
+										</div>
+									</div>
+									<div class="col-md-6 col-sm-6  form-group has-feedback">
+										<label for="event_start_time"><form:label
+												path="event_start_time">
+												Event Start Time
+										</form:label> </label>
+										<form:input id="event_start_time" path="event_start_time"
+											class="form-control" type="time" name="eventstarttime"
+											value="" required="true" data-eye="true" />
+										<div class="invalid-feedback">
+											<form:errors path="event_start_time" class="help-inline" />
+											Event Start Time is required
+										</div>
+									</div>
+									<div class="col-md-6 col-sm-6  form-group has-feedback">
+										<label for="event_end_time"><form:label
+												path="event_end_time">Event End Time
+										</form:label> </label>
+										<form:input id="event_end_time" path="event_end_time"
+											class="form-control" type="time" name="eventendtime" value=""
+											required="true" data-eye="true" />
+										<div class="invalid-feedback">
+											<form:errors path="event_end_time" class="help-inline" />
+											Event End Time is required
+										</div>
+									</div>
+									<div class="col-md-6 col-sm-6  form-group has-feedback">
+										<label for="participents_count"><form:label
+												path="participents_count">Participants Count
+										</form:label> </label>
+										<form:input id="participents_count" path="participents_count"
+											class="form-control" type="int" name="participentscount"
+											value="" required="true" data-eye="true" />
+										<div class="invalid-feedback">
+											<form:errors path="participents_count" cssClass="error"
+												class="help-inline" />
+											Participants Count is required
+										</div>
+									</div>
+									<div class="col-md-6 col-sm-6  form-group has-feedback">
+										<label for="event_loacation"><form:label
+												path="event_loacation">Location
+										</form:label> </label>
+										<form:input id="event_loacation" path="event_loacation"
+											class="form-control" type="text" name="event_loacation"
+											value="" required="true" data-eye="true" />
+										<div class="invalid-feedback">
+											<form:errors path="event_loacation" cssClass="error"
+												class="help-inline" />
+											Location is required
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-md-6 col-sm-6  offset-md-6">
+											<form:button class="btn btn-primary btn-block">
+                                  Create Event
+                                  </form:button>
+										</div>
+									</div>
+
+								</form:form>
+							</div>
+
 						</div>
 
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6 col-lg-4">
-						<form method="post" action="folder" class="btn btn-default fol">
-							<input type="hidden" name="foldername"
-								value="<?php echo $row['folder_name'];?>"> <i
-								class="fa fa-folder-open btn btn-round btn-primary"> <input
-								type="submit" class="btn btn-primary inp" name="view" value=""></i>
-						</form>
-					</div>
+
+					<c:forEach var="event" items="${allevent}">
+						<%-- 	<form:form method="POST" action="Event"
+									modelAttribute="event" class="form-label-left input_mask">
+									<form:input id="event_name" path="event_name" type="hidden" name="event_name"
+											value="${event.getEvent_name()}"  required="true" data-eye="true" />
+									<form:button class="btn btn-round btn-primary">
+                               <i class="fa fa-folder-open "> ${event.getEvent_name()}</i>
+                                  </form:button>
+								
+						</form:form>	 --%>
+						<div class="col-md-4 col-lg-4">
+							<a href="Event/${event.getId()}"
+								class="btn btn-round btn-primary"> <i
+								class="fa fa-folder-open "></i> ${event.getEvent_name()}
+							</a>
+						</div>
+					</c:forEach>
+
+
 
 				</div>
 				<!-- /top tiles -->
@@ -199,6 +334,34 @@ if(session.getAttribute("normUser").equals("user")){
 			x.style.display = "block";
 		} else {
 			x.style.display = "none";
+		}
+		var y = document.getElementById("collapsetwo");
+		y.style.display = "none";
+		var z = document.getElementById("collapsethree");
+		z.style.display = "none";
+	}
+	function showu() {
+		var x = document.getElementById("collapseOne");
+		x.style.display = "none";
+		var y = document.getElementById("collapsetwo");
+		if (y.style.display === "none") {
+			y.style.display = "block";
+		} else {
+			y.style.display = "none";
+		}
+		var z = document.getElementById("collapsethree");
+		z.style.display = "none";
+	}
+	function showd() {
+		var x = document.getElementById("collapseOne");
+		x.style.display = "none";
+		var y = document.getElementById("collapsetwo");
+		y.style.display = "none";
+		var z = document.getElementById("collapsethree");
+		if (z.style.display === "none") {
+			z.style.display = "block";
+		} else {
+			z.style.display = "none";
 		}
 	}
 </script>

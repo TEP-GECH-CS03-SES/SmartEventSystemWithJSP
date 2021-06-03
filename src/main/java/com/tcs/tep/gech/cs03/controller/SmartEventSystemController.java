@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tcs.tep.gech.cs03.bean.AddUserBean;
 import com.tcs.tep.gech.cs03.bean.EventBean;
 import com.tcs.tep.gech.cs03.bean.ForgottenBean;
 import com.tcs.tep.gech.cs03.bean.LoginBean;
@@ -52,9 +53,11 @@ public class SmartEventSystemController {
 	}
 
 	@GetMapping("/UserHome")
-	public String userHome(Model model) {
+	public String userHome(Model model,ModelMap modelmap) {
 		EventBean eb = new EventBean();
 		model.addAttribute("event", eb);
+		ArrayList<EventBean> allEvent = ss.getAllEventDetail();
+		modelmap.addAttribute("allevent", allEvent);
 		return "UserHome";
 	}
 
@@ -72,6 +75,12 @@ public class SmartEventSystemController {
 		ForgottenBean fb = new ForgottenBean();
 		model.addAttribute("forgot", fb);
 		return "forgot";
+	}
+	@GetMapping("/adduser")
+	public String addUser(Model model) {
+		AddUserBean aub = new AddUserBean();
+		model.addAttribute("adduser",aub);
+		return "adduser";
 	}
 
 	@PostMapping("/varify")
@@ -94,7 +103,9 @@ public class SmartEventSystemController {
 			modelmap.addAttribute("allevent", allEvent);
 			return "AdminHome";
 		} else if (validUser == true) {
-			session.setAttribute("normUser", role);
+			ArrayList<EventBean> allEvent = ss.getAllEventDetail();
+			modelmap.addAttribute("allevent", allEvent);
+			session.setAttribute("adminUser", role);
 			return "UserHome";
 		} else {
 			return "login";
@@ -157,6 +168,18 @@ public class SmartEventSystemController {
 			EventBean Event = ss.getEventDetail(event_name);
 			modelmap.addAttribute("event", Event);
 			return "Event";
+		}
+	}
+	@PostMapping("/createuser")
+	public String createUser(@ModelAttribute("adduser") AddUserBean ub , Model model, ModelMap modelmap,
+			HttpServletRequest request) {
+		model.addAttribute("adduser",ub);
+		ss.createUser(ub);
+		session = request.getSession();
+		if (AddUserBean.getConfirm()) {
+			return "redirect:AdminHome";
+		} else {
+			return "redirect:adduser";
 		}
 	}
 
