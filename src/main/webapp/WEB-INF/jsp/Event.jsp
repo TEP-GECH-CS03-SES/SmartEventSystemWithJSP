@@ -99,6 +99,8 @@ if (session.getAttribute("adminUser").equals("admin")) {
 										<%if (session.getAttribute("adminUser").equals("admin")) { %>
 <li><a href="../adduser"><i class="fa fa-user"></i>
 										Add User </a></li>
+										<li><a href="../scan"><i class="fas fa-scanner"></i>
+										Scan QrCode</a></li>
 <% 
 } else{
 

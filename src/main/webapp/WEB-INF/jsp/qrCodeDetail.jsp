@@ -123,6 +123,8 @@
 } else{
 
 	}%>
+	<li><a href="scan"><i class="fas fa-scanner"></i>
+										Scan QrCode</a></li>
 							</ul>
 						</div>
 					</div>
@@ -188,12 +190,9 @@
 															<td>${event.getINQRCODE_NAME() }</td>
 															<td>${event.getOUTQRCODE_NAME() }</td>
 															<c:if test="${event.getSTATUS() == 1 }">
-																<td>In QrCode is Shared</td>
+																<td> QrCode is Shared</td>
 															</c:if>
-															<c:if test="${event.getSTATUS() == 99 }">
-																<td>Out QrCode is Shared</td>
-															</c:if>
-															<c:if test="${event.getSTATUS() == 999}">
+															<c:if test="${event.getSTATUS() == 99}">
 																<td>Completed/Closed</td>
 															</c:if>
 

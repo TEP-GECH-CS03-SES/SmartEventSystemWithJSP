@@ -8,7 +8,7 @@
 <%
 session = request.getSession();
 System.out.println(session.getAttribute("adminUser"));
-if (session.getAttribute("adminUser").equals("admin")) {
+if (session.getAttribute("adminUser").equals("admin") || session.getAttribute("adminUser").equals("user")) {
 
 } else {
 	response.sendRedirect("/logout");
@@ -18,7 +18,7 @@ if (session.getAttribute("adminUser").equals("admin")) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="assets/images/logo.ico" type="image/ico" />
-<title>Add User</title>
+<title>Scan QrCode</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
@@ -118,47 +118,18 @@ if (session.getAttribute("adminUser").equals("admin")) {
 				<!-- top tiles -->
 				<div class="card card-body ml-1"
 								>
-								<h4 class="card-title">Create Event</h4>
-								<form:form method="POST" action="createuser"
-									modelAttribute="adduser" class="form-label-left input_mask">
+								<h4 class="card-title">Scan QR Code</h4>
+								<form:form method="POST" action="showqr"
+									modelAttribute="scan" class="form-label-left input_mask">
 									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="UserName"><form:label path="UserName">User Name</form:label></label>
-										<form:input id="UserName" path="UserName"
-											class="form-control" type="text" value="" required="true"
+										<form:input id="data" path="data"
+											class="form-control" type="text" value="" required="true" placeholder="Focus Before Scan"
 											autofocus="true" />
-										<div class="invalid-feedback">
-											<form:errors path="UserName" class="help-inline" />
-											User Name is invalid
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="Email"><form:label
-												path="Email">Email
-										</form:label> </label>
-										<form:input id="Email" path="Email"
-											class="form-control" type="email" name="Email"
-											value="" required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="Email" class="help-inline" />
-											Email is required
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6  form-group has-feedback">
-										<label for="phone"><form:label
-												path="phone">Phone Number
-										</form:label> </label>
-										<form:input id="phone" path="phone"
-											class="form-control" type="number" name="phone" value=""
-											required="true" data-eye="true" />
-										<div class="invalid-feedback">
-											<form:errors path="phone" class="help-inline" />
-											Phone Number is required
-										</div>
 									</div>
 									<div class="form-group">
 										<div class="col-md-6 col-sm-6  offset-md-6">
 											<form:button class="btn btn-primary btn-block">
-                                  Create User
+                                  Auto Submit 
                                   </form:button>
 										</div>
 									</div>

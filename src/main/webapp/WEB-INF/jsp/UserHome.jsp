@@ -86,6 +86,8 @@ if (session.getAttribute("adminUser").equals("user")) {
 										Participants Details </a></li>
 								<li><a href="qrCodeDetail"><i class="fa fa-download"></i>
 										QrCode Details </a></li>
+										<li><a href="scan"><i class="fas fa-scanner"></i>
+										Scan QrCode</a></li>
 							</ul>
 						</div>
 					</div>

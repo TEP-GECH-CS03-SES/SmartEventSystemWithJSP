@@ -88,6 +88,8 @@ if (session.getAttribute("adminUser").equals("admin")) {
 										QrCode Details </a></li>
 										<li><a href="adduser"><i class="fa fa-user"></i>
 										Add User </a></li>
+										<li><a href="scan"><i class="fas fa-scanner"></i>
+										Scan QrCode</a></li>
 							</ul>
 						</div>
 					</div>

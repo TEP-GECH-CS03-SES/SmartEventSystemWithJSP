@@ -9,6 +9,7 @@ import com.tcs.tep.gech.cs03.bean.AddUserBean;
 import com.tcs.tep.gech.cs03.bean.EventBean;
 import com.tcs.tep.gech.cs03.bean.ParticipantBean;
 import com.tcs.tep.gech.cs03.bean.QrCodeBean;
+import com.tcs.tep.gech.cs03.bean.ScanBean;
 import com.tcs.tep.gech.cs03.dao.SmartEventSystemDAOImpl;
 import com.tcs.tep.gech.cs03.util.QrCodeUtil;
 
@@ -94,5 +95,13 @@ public class SmartEventSystemServiceImpl implements SmartEventSystemService {
 
 	public ArrayList<QrCodeBean> getAllQrcodeDetails() {
 		return sdao.getAllQrcodeDetail();
+	}
+	public void updateqrcode(ScanBean sb) {
+		String[] output = sb.getData().split("_");
+		sb.setFirstname(output[0]);
+		sb.setLastname(output[1]);
+		sb.setEventname(output[2]);
+		sb.setPhone(output[3]);
+		sdao.updateqrcode(sb);
 	}
 }
