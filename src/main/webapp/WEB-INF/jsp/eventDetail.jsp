@@ -123,6 +123,8 @@
 } else{
 
 	}%>
+	<li><a href="scan"><i class="fas fa-scanner"></i>
+										Scan QrCode</a></li>
 							
 							</ul>
 						</div>

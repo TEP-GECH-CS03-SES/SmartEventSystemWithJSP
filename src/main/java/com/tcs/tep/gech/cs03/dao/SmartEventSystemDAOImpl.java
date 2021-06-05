@@ -20,6 +20,7 @@ import com.tcs.tep.gech.cs03.bean.ForgottenBean;
 import com.tcs.tep.gech.cs03.bean.LoginBean;
 import com.tcs.tep.gech.cs03.bean.ParticipantBean;
 import com.tcs.tep.gech.cs03.bean.QrCodeBean;
+import com.tcs.tep.gech.cs03.bean.ScanBean;
 
 @Repository
 public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
@@ -365,6 +366,22 @@ public class SmartEventSystemDAOImpl implements SmartEventSystemDAO {
 		}
 	}
 
+	public void updateqrcode(ScanBean sb) {
+		Statement stmt;
+		try {
+			stmt = conn.createStatement();
+			System.out.println(sb);
+			String update = "update QRCODE  set  STATUS  = '" + 99
+					+ "' where FIRST_NAME  ='" + sb.getFirstname() + "' and PHONE ='" + sb.getPhone() + "' and EVENT_NAME ='"+sb.getEventname()+"'";
+			stmt.executeUpdate(update);
+			System.out.println("updated");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return;
+	}
 	public ArrayList<ParticipantBean> getAllParticipant() {
 		ArrayList<ParticipantBean> allParticipants = new ArrayList<ParticipantBean>();
 		try {

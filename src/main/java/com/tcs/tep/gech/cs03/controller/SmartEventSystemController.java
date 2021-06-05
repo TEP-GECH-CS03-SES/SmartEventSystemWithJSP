@@ -26,6 +26,7 @@ import com.tcs.tep.gech.cs03.bean.ForgottenBean;
 import com.tcs.tep.gech.cs03.bean.LoginBean;
 import com.tcs.tep.gech.cs03.bean.ParticipantBean;
 import com.tcs.tep.gech.cs03.bean.QrCodeBean;
+import com.tcs.tep.gech.cs03.bean.ScanBean;
 import com.tcs.tep.gech.cs03.service.SmartEventSystemServiceImpl;
 
 @Controller
@@ -75,6 +76,20 @@ public class SmartEventSystemController {
 		ForgottenBean fb = new ForgottenBean();
 		model.addAttribute("forgot", fb);
 		return "forgot";
+	}
+	@GetMapping("/scan")
+	public String scan(Model model) {
+		ScanBean sb = new ScanBean();
+		model.addAttribute("scan", sb);
+		return "scan";
+	}
+	@PostMapping("/showqr")
+	public String qrcodeshow(@ModelAttribute("scan") ScanBean sb, Model model, ModelMap modelmap,
+			HttpServletRequest request) {
+		System.out.println(sb);
+		ss.updateqrcode(sb);
+		modelmap.addAttribute("qrcode", sb);
+	return "show";
 	}
 	@GetMapping("/adduser")
 	public String addUser(Model model) {
